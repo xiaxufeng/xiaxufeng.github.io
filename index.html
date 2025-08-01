@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端PDF工具箱</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 加载PDF.js库 -->
+    <script src="js/pdf.min.js"></script>
+    <!-- 加载pdf-lib库 -->
+    <script src="js/pdf-lib.min.js"></script>
+    <script>
+        // 配置PDF.js worker
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 导航栏 - 固定在顶部 -->
+    <nav class="nav">
+        <a href="#" class="logo" onclick="showMainPage()">前端PDF工具箱</a>
+        <button class="back-btn" onclick="showMainPage()">← 返回首页</button>
+    </nav>
+
+    <div class="container">
+        <!-- 主页面 -->
+        <div class="main-page" id="mainPage">
+            <header class="main-header">
+                <h1 class="main-title">前端PDF工具箱</h1>
+                <p class="main-subtitle">一个纯前端实现的专业PDF处理工具集，无需将PDF发送到后端服务器处理，保护隐私</p>
+            </header>
+
+            <div class="tools-grid">
+                <div class="tool-card" onclick="showFeaturePage('merge')">
+                    <div class="tool-icon">📄</div>
+                    <h3 class="tool-title">合并PDF</h3>
+                    <p class="tool-description">将多个PDF文件合并为一个完整的文档</p>
+                    <ul class="tool-features">
+                        <li>支持多文件同时合并</li>
+                        <li>保持原文档格式</li>
+                        <li>自定义合并顺序</li>
+                    </ul>
+                </div>
+
+                <div class="tool-card" onclick="showFeaturePage('split')">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">拆分PDF</h3>
+                    <p class="tool-description">将PDF文件按页面拆分或提取指定页面</p>
+                    <ul class="tool-features">
+                        <li>拆分为单独页面</li>
+                        <li>提取指定页面范围</li>
+                        <li>灵活的页面选择</li>
+                    </ul>
+                </div>
+
+                <div class="tool-card" onclick="showFeaturePage('unlock')">
+                    <div class="tool-icon">🔓</div>
+                    <h3 class="tool-title">解除密码</h3>
+                    <p class="tool-description">移除PDF文件的密码保护限制</p>
+                    <ul class="tool-features">
+                        <li>快速解除保护</li>
+                        <li>支持多种加密类型</li>
+                        <li>安全可靠</li>
+                    </ul>
+                </div>
+
+                <!--
+                <div class="tool-card" onclick="showFeaturePage('protect')">
+                    <div class="tool-icon">🔒</div>
+                    <h3 class="tool-title">添加密码</h3>
+                    <p class="tool-description">为PDF文件添加密码保护和权限控制</p>
+                    <ul class="tool-features">
+                        <li>设置打开密码</li>
+                        <li>权限控制管理</li>
+                        <li>安全等级设置</li>
+                    </ul>
+                </div>  -->
+
+                <!--
+                <div class="tool-card" onclick="showFeaturePage('extract-images')">
+                    <div class="tool-icon">🖼️</div>
+                    <h3 class="tool-title">提取图像</h3>
+                    <p class="tool-description">从PDF文档中提取所有图片文件</p>
+                    <ul class="tool-features">
+                        <li>支持多种图片格式</li>
+                        <li>保持原始图片质量</li>
+                        <li>批量提取处理</li>
+                    </ul>
+                </div>  -->
+
+                <div class="tool-card" onclick="showFeaturePage('remove-annotations')">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">删除标注</h3>
+                    <p class="tool-description">移除PDF中的注释和标注内容</p>
+                    <ul class="tool-features">
+                        <li>删除所有注释类型</li>
+                        <li>保留正文内容</li>
+                        <li>清理文档外观</li>
+                    </ul>
+                </div>
+
+                <div class="tool-card" onclick="showFeaturePage('remove-pages')">
+                    <div class="tool-icon">🗑️</div>
+                    <h3 class="tool-title">删除页面</h3>
+                    <p class="tool-description">删除PDF文档中的指定页面</p>
+                    <ul class="tool-features">
+                        <li>指定页面范围删除</li>
+                        <li>灵活的页面选择</li>
+                        <li>保留剩余页面顺序</li>
+                    </ul>
+                </div>
+
+                <div class="tool-card" onclick="showFeaturePage('pdf-to-images')">
+                    <div class="tool-icon">🖼️</div>
+                    <h3 class="tool-title">PDF转图片</h3>
+                    <p class="tool-description">将PDF页面转换为图片格式</p>
+                    <ul class="tool-features">
+                        <li>支持JPG、PNG格式</li>
+                        <li>自定义图片质量</li>
+                        <li>批量转换页面</li>
+                    </ul>
+                </div>
+
+                <div class="tool-card" onclick="showFeaturePage('images-to-pdf')">
+                    <div class="tool-icon">📷</div>
+                    <h3 class="tool-title">图片转PDF</h3>
+                    <p class="tool-description">将多张图片合并为PDF文档</p>
+                    <ul class="tool-features">
+                        <li>支持多种图片格式</li>
+                        <li>自定义页面大小</li>
+                        <li>调整图片顺序</li>
+                    </ul>
+                </div>
+
+                <div class="tool-card" onclick="showFeaturePage('pdf-to-word')">
+                    <div class="tool-icon">📄</div>
+                    <h3 class="tool-title">PDF转Word</h3>
+                    <p class="tool-description">将PDF文档转换为可编辑的Word格式</p>
+                    <ul class="tool-features">
+                        <li>保持文档结构</li>
+                        <li>识别文字和图片</li>
+                        <li>支持表格转换</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 功能页面 -->
+        <div class="feature-page" id="featurePage">
+            <header class="feature-header">
+                <h1 class="feature-title" id="featureTitle">PDF处理</h1>
+                <p class="feature-subtitle" id="featureSubtitle">处理您的PDF文件</p>
+            </header>
+
+            <div class="feature-content">
+                <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                    <div class="upload-icon">📎</div>
+                    <div class="upload-text">点击选择文件或拖拽到此处</div>
+                    <div class="upload-hint" id="uploadHint">支持PDF格式文件</div>
+                </div>
+
+                <input type="file" id="fileInput" accept=".pdf" multiple>
+
+                <div class="file-list" id="fileList"></div>
+
+                <!-- 拆分选项 - 简化版 -->
+                <div class="split-options" id="splitOptions" style="display: none;">
+                    <div class="option-group">
+                        <label class="option-label">拆分方式</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="splitAll" name="splitMode" value="all" checked>
+                                <label for="splitAll">拆分为单独页面</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="splitPages" name="splitMode" value="pages">
+                                <label for="splitPages">提取指定页面</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <label class="option-label">页面设置</label>
+                        <input type="text" class="page-input" id="pageInput" placeholder="例如: 1-5, 8, 10-12" disabled>
+                        <div class="input-hint" id="pageHint">选择"提取指定页面"后输入页面范围或页面号</div>
+                    </div>
+                </div>
+
+                <!-- 删除页面选项 - 简化版 -->
+                <div class="split-options" id="removePageOptions" style="display: none;">
+                    <div class="option-group">
+                        <label class="option-label">要删除的页面</label>
+                        <input type="text" class="page-input" id="removePageInput" placeholder="例如: 1-5, 8, 10-12">
+                        <div class="input-hint" id="removePageHint">输入要删除的页面范围或页面号，用逗号分隔</div>
+                    </div>
+                </div>
+
+                <!-- 格式选择选项 -->
+                <div class="format-options" id="formatOptions" style="display: none;">
+                    <div class="option-group">
+                        <label class="option-label">选择输出格式</label>
+                        <div class="format-grid" id="formatGrid">
+                            <!-- 动态生成格式选项 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 质量设置选项 -->
+                <div class="quality-options" id="qualityOptions" style="display: none;">
+                    <div class="option-group">
+                        <label class="option-label">图片质量</label>
+                        <input type="range" class="quality-slider" id="qualitySlider" min="50" max="100" value="90">
+                        <div class="quality-labels">
+                            <span>低质量</span>
+                            <span id="qualityValue">90%</span>
+                            <span>高质量</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="password-options" id="passwordOptions" style="display: none;">
+                    <div class="option-group">
+                        <label class="option-label">PDF密码</label>
+                        <input type="password" class="password-input" id="pdfPassword" placeholder="请输入PDF密码">
+                        <div class="input-hint">需要提供正确的密码才能解除PDF保护</div>
+
+                        <!-- 可选：显示密码按钮 -->
+                        <div class="password-toggle">
+                            <input type="checkbox" id="showPassword" onchange="togglePasswordVisibility()">
+                            <label for="showPassword">显示密码</label>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <!--
+                <div class="protect-options" id="protectOptions" style="display: none;">
+                    <div class="option-group">
+                        <label class="option-label">设置PDF密码</label>
+                        <input type="password" class="password-input" id="protectPassword" placeholder="请输入新密码">
+                        <div class="input-hint">为PDF文件设置打开密码</div>
+                    </div>
+
+                    <div class="option-group">
+                        <label class="option-label">确认密码</label>
+                        <input type="password" class="password-input" id="confirmPassword" placeholder="请再次输入密码">
+                        <div class="input-hint">确保密码输入正确</div>
+                    </div>
+
+                    <div class="password-toggle">
+                        <input type="checkbox" id="showProtectPassword" onchange="toggleProtectPasswordVisibility()">
+                        <label for="showProtectPassword">显示密码</label>
+                    </div>
+                </div> -->
+
+                <!-- 页面大小选项 -->
+                <div class="page-size-options" id="pageSizeOptions" style="display: none;">
+                    <div class="option-group">
+                        <label class="option-label">页面大小</label>
+                        <div class="page-size-grid">
+                            <div class="page-size-item selected" data-size="A4">A4</div>
+                            <div class="page-size-item" data-size="A3">A3</div>
+                            <div class="page-size-item" data-size="A5">A5</div>
+                            <div class="page-size-item" data-size="Letter">Letter</div>
+                            <div class="page-size-item" data-size="Legal">Legal</div>
+                            <div class="page-size-item" data-size="Custom">自定义</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+                <button class="btn" id="processBtn" onclick="processFiles()">开始处理</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
