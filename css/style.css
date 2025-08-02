@@ -29,10 +29,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);  /* 可选：添加毛玻璃效果 */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);  /* 可选：添加底部边框 */
     padding: 1rem 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    /*border-bottom: 1px solid rgba(255, 255, 255, 0.2); */
 }
 
 .logo {
@@ -725,6 +726,7 @@ input[type="range"]::-moz-range-thumb {
     font-size: 12px;
     color: #666;
 }
+
 
 .lang-btn {
     background: rgba(255, 255, 255, 0.1);
