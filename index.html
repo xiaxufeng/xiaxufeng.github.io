@@ -4,19 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-zh="前端PDF工具箱" data-en="Frontend PDF Toolbox">前端PDF工具箱</title>
 
-    <link rel="stylesheet" href="css/style.css">
-    <!-- 加载PDF.js库 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <!-- 加载pdf-lib库 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
-    <script>
-        // 配置PDF.js worker
-        if (typeof pdfjsLib !== 'undefined') {
-            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-        }
+    <!-- SEO基础标签 -->
+    <title data-zh="前端PDF工具箱 - 免费在线PDF处理工具" data-en="Frontend PDF Toolbox - Free Online PDF Processing Tools">前端PDF工具箱 -
+        免费在线PDF处理工具</title>
+    <meta name="description" data-zh-content="免费的在线PDF工具箱，支持PDF合并、拆分、旋转、删除页面、解除密码、删除标注、PDF转图片、图片转PDF。纯前端处理，保护隐私安全。"
+        data-en-content="Free online PDF toolbox supporting PDF merge, split, rotate, remove pages, unlock password, remove annotations, PDF to images, images to PDF. Frontend processing for privacy protection.">
+    <meta name="keywords" data-zh-content="PDF工具,PDF合并,PDF拆分,PDF旋转,PDF转图片,图片转PDF,PDF解密,在线PDF处理,免费PDF工具"
+        data-en-content="PDF tools,PDF merge,PDF split,PDF rotate,PDF to images,images to PDF,PDF unlock,online PDF processing,free PDF tools">
+    <meta name="author" content="Frontend PDF Toolbox">
+
+    <!-- Favicon -->
+    <!-- 现代浏览器 - SVG Emoji -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+
+    <!-- 结构化数据 - JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Frontend PDF Toolbox",
+        "alternateName": "前端PDF工具箱",
+        "description": "Free online PDF processing toolbox with merge, split, rotate, and conversion features",
+        "url": "https://xiaxufeng.github.io",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "PDF Merge",
+            "PDF Split",
+            "PDF Rotate",
+            "PDF to Images",
+            "Images to PDF",
+            "Remove Password",
+            "Remove Annotations"
+        ]
+    }
     </script>
+
+    <!-- 原有的CSS和JS引用 -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 </head>
 
 <body>
@@ -34,14 +68,17 @@
         <div class="main-page" id="mainPage">
             <header class="main-header">
                 <h1 class="main-title" data-zh="前端PDF工具箱" data-en="Frontend PDF Toolbox">前端PDF工具箱</h1>
-                <p class="main-subtitle" data-zh="一个纯前端实现的专业PDF处理工具集，无需将PDF发送到后端服务器处理，保护隐私" data-en="A professional frontend PDF processing toolkit that processes files locally without uploading to servers, protecting your privacy">一个纯前端实现的专业PDF处理工具集，无需将PDF发送到后端服务器处理，保护隐私</p>
+                <p class="main-subtitle" data-zh="一个纯前端实现的专业PDF处理工具集，无需将PDF发送到后端服务器处理，保护隐私"
+                    data-en="A professional frontend PDF processing toolkit that processes files locally without uploading to servers, protecting your privacy">
+                    一个纯前端实现的专业PDF处理工具集，无需将PDF发送到后端服务器处理，保护隐私</p>
             </header>
 
             <div class="tools-grid">
                 <div class="tool-card" onclick="showFeaturePage('merge')">
                     <div class="tool-icon">📄</div>
                     <h3 class="tool-title" data-zh="合并PDF" data-en="Merge PDF">合并PDF</h3>
-                    <p class="tool-description" data-zh="将多个PDF文件合并为一个完整的文档" data-en="Combine multiple PDF files into a single document">将多个PDF文件合并为一个完整的文档</p>
+                    <p class="tool-description" data-zh="将多个PDF文件合并为一个完整的文档"
+                        data-en="Combine multiple PDF files into a single document">将多个PDF文件合并为一个完整的文档</p>
                     <ul class="tool-features">
                         <li data-zh="支持多文件同时合并" data-en="Support multiple file merging">支持多文件同时合并</li>
                         <li data-zh="保持原文档格式" data-en="Preserve original document format">保持原文档格式</li>
@@ -52,7 +89,8 @@
                 <div class="tool-card" onclick="showFeaturePage('split')">
                     <div class="tool-icon">✂️</div>
                     <h3 class="tool-title" data-zh="拆分PDF" data-en="Split PDF">拆分PDF</h3>
-                    <p class="tool-description" data-zh="将PDF文件按页面拆分或提取指定页面" data-en="Split PDF files by pages or extract specific pages">将PDF文件按页面拆分或提取指定页面</p>
+                    <p class="tool-description" data-zh="将PDF文件按页面拆分或提取指定页面"
+                        data-en="Split PDF files by pages or extract specific pages">将PDF文件按页面拆分或提取指定页面</p>
                     <ul class="tool-features">
                         <li data-zh="拆分为单独页面" data-en="Split into individual pages">拆分为单独页面</li>
                         <li data-zh="提取指定页面范围" data-en="Extract specific page ranges">提取指定页面范围</li>
@@ -63,7 +101,8 @@
                 <div class="tool-card" onclick="showFeaturePage('unlock')">
                     <div class="tool-icon">🔓</div>
                     <h3 class="tool-title" data-zh="解除密码" data-en="Remove Password">解除密码</h3>
-                    <p class="tool-description" data-zh="移除PDF文件的密码保护限制" data-en="Remove password protection from PDF files">移除PDF文件的密码保护限制</p>
+                    <p class="tool-description" data-zh="移除PDF文件的密码保护限制"
+                        data-en="Remove password protection from PDF files">移除PDF文件的密码保护限制</p>
                     <ul class="tool-features">
                         <li data-zh="快速解除保护" data-en="Quick protection removal">快速解除保护</li>
                         <li data-zh="支持多种加密类型" data-en="Support various encryption types">支持多种加密类型</li>
@@ -74,7 +113,8 @@
                 <div class="tool-card" onclick="showFeaturePage('remove-annotations')">
                     <div class="tool-icon">📝</div>
                     <h3 class="tool-title" data-zh="删除标注" data-en="Remove Annotations">删除标注</h3>
-                    <p class="tool-description" data-zh="移除PDF中的注释和标注内容" data-en="Remove comments and annotations from PDF">移除PDF中的注释和标注内容</p>
+                    <p class="tool-description" data-zh="移除PDF中的注释和标注内容"
+                        data-en="Remove comments and annotations from PDF">移除PDF中的注释和标注内容</p>
                     <ul class="tool-features">
                         <li data-zh="删除所有注释类型" data-en="Remove all annotation types">删除所有注释类型</li>
                         <li data-zh="保留正文内容" data-en="Preserve main content">保留正文内容</li>
@@ -85,7 +125,8 @@
                 <div class="tool-card" onclick="showFeaturePage('remove-pages')">
                     <div class="tool-icon">🗑️</div>
                     <h3 class="tool-title" data-zh="删除页面" data-en="Remove Pages">删除页面</h3>
-                    <p class="tool-description" data-zh="删除PDF文档中的指定页面" data-en="Delete specific pages from PDF document">删除PDF文档中的指定页面</p>
+                    <p class="tool-description" data-zh="删除PDF文档中的指定页面"
+                        data-en="Delete specific pages from PDF document">删除PDF文档中的指定页面</p>
                     <ul class="tool-features">
                         <li data-zh="指定页面范围删除" data-en="Delete specific page ranges">指定页面范围删除</li>
                         <li data-zh="灵活的页面选择" data-en="Flexible page selection">灵活的页面选择</li>
@@ -96,9 +137,11 @@
                 <div class="tool-card" onclick="showFeaturePage('rotate-pages')">
                     <div class="tool-icon">🔄</div>
                     <h3 class="tool-title" data-zh="调整页面方向" data-en="Rotate Pages">调整页面方向</h3>
-                    <p class="tool-description" data-zh="旋转PDF页面到指定方向" data-en="Rotate PDF pages to specified orientation">旋转PDF页面到指定方向</p>
+                    <p class="tool-description" data-zh="旋转PDF页面到指定方向"
+                        data-en="Rotate PDF pages to specified orientation">旋转PDF页面到指定方向</p>
                     <ul class="tool-features">
-                        <li data-zh="支持90°、180°、270°旋转" data-en="Support 90°, 180°, 270° rotation">支持90°、180°、270°旋转</li>
+                        <li data-zh="支持90°、180°、270°旋转" data-en="Support 90°, 180°, 270° rotation">支持90°、180°、270°旋转
+                        </li>
                         <li data-zh="可选择指定页面或全部页面" data-en="Select specific pages or all pages">可选择指定页面或全部页面</li>
                         <li data-zh="保持原文档格式" data-en="Preserve original document format">保持原文档格式</li>
                     </ul>
@@ -107,7 +150,8 @@
                 <div class="tool-card" onclick="showFeaturePage('pdf-to-images')">
                     <div class="tool-icon">🖼️</div>
                     <h3 class="tool-title" data-zh="PDF转图片" data-en="PDF to Images">PDF转图片</h3>
-                    <p class="tool-description" data-zh="将PDF页面转换为图片格式" data-en="Convert PDF pages to image format">将PDF页面转换为图片格式</p>
+                    <p class="tool-description" data-zh="将PDF页面转换为图片格式" data-en="Convert PDF pages to image format">
+                        将PDF页面转换为图片格式</p>
                     <ul class="tool-features">
                         <li data-zh="支持JPG、PNG格式" data-en="Support JPG, PNG formats">支持JPG、PNG格式</li>
                         <li data-zh="自定义图片质量" data-en="Custom image quality">自定义图片质量</li>
@@ -118,7 +162,8 @@
                 <div class="tool-card" onclick="showFeaturePage('images-to-pdf')">
                     <div class="tool-icon">📷</div>
                     <h3 class="tool-title" data-zh="图片转PDF" data-en="Images to PDF">图片转PDF</h3>
-                    <p class="tool-description" data-zh="将多张图片合并为PDF文档" data-en="Combine multiple images into PDF document">将多张图片合并为PDF文档</p>
+                    <p class="tool-description" data-zh="将多张图片合并为PDF文档"
+                        data-en="Combine multiple images into PDF document">将多张图片合并为PDF文档</p>
                     <ul class="tool-features">
                         <li data-zh="支持多种图片格式" data-en="Support various image formats">支持多种图片格式</li>
                         <li data-zh="自定义页面大小" data-en="Custom page size">自定义页面大小</li>
@@ -132,14 +177,17 @@
         <div class="feature-page" id="featurePage">
             <header class="feature-header">
                 <h1 class="feature-title" id="featureTitle" data-zh="PDF处理" data-en="PDF Processing">PDF处理</h1>
-                <p class="feature-subtitle" id="featureSubtitle" data-zh="处理您的PDF文件" data-en="Process your PDF files">处理您的PDF文件</p>
+                <p class="feature-subtitle" id="featureSubtitle" data-zh="处理您的PDF文件" data-en="Process your PDF files">
+                    处理您的PDF文件</p>
             </header>
 
             <div class="feature-content">
                 <div class="upload-area" onclick="document.getElementById('fileInput').click()">
                     <div class="upload-icon">📎</div>
-                    <div class="upload-text" data-zh="点击选择文件或拖拽到此处" data-en="Click to select files or drag and drop here">点击选择文件或拖拽到此处</div>
-                    <div class="upload-hint" id="uploadHint" data-zh="支持PDF格式文件" data-en="Support PDF format files">支持PDF格式文件</div>
+                    <div class="upload-text" data-zh="点击选择文件或拖拽到此处"
+                        data-en="Click to select files or drag and drop here">点击选择文件或拖拽到此处</div>
+                    <div class="upload-hint" id="uploadHint" data-zh="支持PDF格式文件" data-en="Support PDF format files">
+                        支持PDF格式文件</div>
                 </div>
 
                 <input type="file" id="fileInput" accept=".pdf" multiple>
@@ -153,7 +201,8 @@
                         <div class="radio-group">
                             <div class="radio-item">
                                 <input type="radio" id="splitAll" name="splitMode" value="all" checked>
-                                <label for="splitAll" data-zh="拆分为单独页面" data-en="Split into individual pages">拆分为单独页面</label>
+                                <label for="splitAll" data-zh="拆分为单独页面"
+                                    data-en="Split into individual pages">拆分为单独页面</label>
                             </div>
                             <div class="radio-item">
                                 <input type="radio" id="splitPages" name="splitMode" value="pages">
@@ -164,8 +213,11 @@
 
                     <div class="option-group">
                         <label class="option-label" data-zh="页面设置" data-en="Page Settings">页面设置</label>
-                        <input type="text" class="page-input" id="pageInput" data-zh-placeholder="例如: 1-5, 8, 10-12" data-en-placeholder="e.g: 1-5, 8, 10-12" placeholder="例如: 1-5, 8, 10-12" disabled>
-                        <div class="input-hint" id="pageHint" data-zh="选择"提取指定页面"后输入页面范围或页面号" data-en="Select 'Extract specific pages' then enter page ranges or numbers">选择"提取指定页面"后输入页面范围或页面号</div>
+                        <input type="text" class="page-input" id="pageInput" data-zh-placeholder="例如: 1-5, 8, 10-12"
+                            data-en-placeholder="e.g: 1-5, 8, 10-12" placeholder="例如: 1-5, 8, 10-12" disabled>
+                        <div class="input-hint" id="pageHint" data-zh="选择" 提取指定页面"后输入页面范围或页面号"
+                            data-en="Select 'Extract specific pages' then enter page ranges or numbers">
+                            选择"提取指定页面"后输入页面范围或页面号</div>
                     </div>
                 </div>
 
@@ -173,8 +225,12 @@
                 <div class="split-options" id="removePageOptions" style="display: none;">
                     <div class="option-group">
                         <label class="option-label" data-zh="要删除的页面" data-en="Pages to Remove">要删除的页面</label>
-                        <input type="text" class="page-input" id="removePageInput" data-zh-placeholder="例如: 1-5, 8, 10-12" data-en-placeholder="e.g: 1-5, 8, 10-12" placeholder="例如: 1-5, 8, 10-12">
-                        <div class="input-hint" id="removePageHint" data-zh="输入要删除的页面范围或页面号，用逗号分隔" data-en="Enter page ranges or numbers to delete, separated by commas">输入要删除的页面范围或页面号，用逗号分隔</div>
+                        <input type="text" class="page-input" id="removePageInput"
+                            data-zh-placeholder="例如: 1-5, 8, 10-12" data-en-placeholder="e.g: 1-5, 8, 10-12"
+                            placeholder="例如: 1-5, 8, 10-12">
+                        <div class="input-hint" id="removePageHint" data-zh="输入要删除的页面范围或页面号，用逗号分隔"
+                            data-en="Enter page ranges or numbers to delete, separated by commas">输入要删除的页面范围或页面号，用逗号分隔
+                        </div>
                     </div>
                 </div>
 
@@ -214,8 +270,12 @@
 
                     <div class="option-group">
                         <label class="option-label" data-zh="页面范围" data-en="Page Range">页面范围</label>
-                        <input type="text" class="page-input" id="rotatePageInput" data-zh-placeholder="例如: 1-5, 8, 10-12" data-en-placeholder="e.g: 1-5, 8, 10-12" placeholder="例如: 1-5, 8, 10-12" disabled>
-                        <div class="input-hint" id="rotatePageHint" data-zh="选择"指定页面"后输入页面范围或页面号" data-en="Select 'Specific pages' then enter page ranges or numbers">选择"指定页面"后输入页面范围或页面号</div>
+                        <input type="text" class="page-input" id="rotatePageInput"
+                            data-zh-placeholder="例如: 1-5, 8, 10-12" data-en-placeholder="e.g: 1-5, 8, 10-12"
+                            placeholder="例如: 1-5, 8, 10-12" disabled>
+                        <div class="input-hint" id="rotatePageHint" data-zh="选择" 指定页面"后输入页面范围或页面号"
+                            data-en="Select 'Specific pages' then enter page ranges or numbers">选择"指定页面"后输入页面范围或页面号
+                        </div>
                     </div>
                 </div>
 
@@ -246,8 +306,10 @@
                 <div class="password-options" id="passwordOptions" style="display: none;">
                     <div class="option-group">
                         <label class="option-label" data-zh="PDF密码" data-en="PDF Password">PDF密码</label>
-                        <input type="password" class="password-input" id="pdfPassword" data-zh-placeholder="请输入PDF密码" data-en-placeholder="Please enter PDF password" placeholder="请输入PDF密码">
-                        <div class="input-hint" data-zh="需要提供正确的密码才能解除PDF保护" data-en="Correct password required to unlock PDF protection">需要提供正确的密码才能解除PDF保护</div>
+                        <input type="password" class="password-input" id="pdfPassword" data-zh-placeholder="请输入PDF密码"
+                            data-en-placeholder="Please enter PDF password" placeholder="请输入PDF密码">
+                        <div class="input-hint" data-zh="需要提供正确的密码才能解除PDF保护"
+                            data-en="Correct password required to unlock PDF protection">需要提供正确的密码才能解除PDF保护</div>
 
                         <div class="password-toggle">
                             <input type="checkbox" id="showPassword" onchange="togglePasswordVisibility()">
@@ -266,7 +328,8 @@
                             <div class="page-size-item" data-size="A5">A5</div>
                             <div class="page-size-item" data-size="Letter">Letter</div>
                             <div class="page-size-item" data-size="Legal">Legal</div>
-                            <div class="page-size-item" data-size="Original" data-zh="图片原始大小" data-en="Original Image Size">图片原始大小</div>
+                            <div class="page-size-item" data-size="Original" data-zh="图片原始大小"
+                                data-en="Original Image Size">图片原始大小</div>
                         </div>
                     </div>
                 </div>
@@ -275,105 +338,32 @@
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
 
-                <button class="btn" id="processBtn" onclick="processFiles()" data-zh="开始处理" data-en="Start Processing">开始处理</button>
+                <button class="btn" id="processBtn" onclick="processFiles()" data-zh="开始处理"
+                    data-en="Start Processing">开始处理</button>
             </div>
         </div>
     </div>
-
-    <style>
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .lang-btn {
-            background: none;
-            border: 1px solid #ccc;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            color: #666;
-            transition: all 0.3s ease;
-        }
-        
-        .lang-btn:hover {
-            border-color: #007bff;
-            color: #007bff;
-        }
-        
-        .rotate-options {
-            margin-top: 20px;
-        }
-        
-        .rotate-angle-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 10px;
-        }
-        
-        .rotate-angle-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        
-        .rotate-angle-item:hover {
-            border-color: #007bff;
-            background-color: #f8f9fa;
-        }
-        
-        .rotate-angle-item.selected {
-            border-color: #007bff;
-            background-color: #e3f2fd;
-        }
-        
-        .rotate-icon {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-        
-        .rotate-label {
-            font-size: 12px;
-            color: #666;
-        }
-    </style>
-
     <script>
         // 语言管理
         let currentLanguage = 'zh'; // 默认中文
-        
+
         // 检测系统语言并设置初始语言
         function initLanguage() {
             const systemLang = navigator.language || navigator.userLanguage;
             currentLanguage = systemLang.startsWith('zh') ? 'zh' : 'en';
             updateLanguage();
         }
-        
+
         // 切换语言
         function toggleLanguage() {
             currentLanguage = currentLanguage === 'zh' ? 'en' : 'zh';
             updateLanguage();
         }
-        
+
         // 更新页面语言
         function updateLanguage() {
             const elements = document.querySelectorAll('[data-zh][data-en]');
-            
+
             elements.forEach(element => {
                 const text = element.getAttribute(`data-${currentLanguage}`);
                 if (text) {
@@ -384,7 +374,7 @@
                     }
                 }
             });
-            
+
             // 更新placeholder
             const placeholderElements = document.querySelectorAll(`[data-${currentLanguage}-placeholder]`);
             placeholderElements.forEach(element => {
@@ -393,7 +383,7 @@
                     element.placeholder = placeholder;
                 }
             });
-            
+
             // 更新title
             const title = document.title;
             const titleElement = document.querySelector('title');
@@ -403,17 +393,17 @@
                     document.title = titleText;
                 }
             }
-            
+
             // 更新html lang属性
             document.documentElement.lang = currentLanguage === 'zh' ? 'zh-CN' : 'en';
         }
-        
+
         // 页面加载完成后初始化语言
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initLanguage();
         });
     </script>
-    
+
     <script src="js/script.js"></script>
 </body>
 
