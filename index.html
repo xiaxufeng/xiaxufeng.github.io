@@ -58,7 +58,6 @@
     <nav class="nav">
         <a href="#" class="logo" onclick="showMainPage()" data-zh="前端PDF工具箱" data-en="Frontend PDF Toolbox">前端PDF工具箱</a>
         <div class="nav-right">
-            <button class="lang-btn" onclick="toggleLanguage()" data-zh="English" data-en="中文">English</button>
             <button class="back-btn" onclick="showMainPage()" data-zh="← 返回首页" data-en="← Back to Home">← 返回首页</button>
         </div>
     </nav>
@@ -354,12 +353,6 @@
             updateLanguage();
         }
 
-        // 切换语言
-        function toggleLanguage() {
-            currentLanguage = currentLanguage === 'zh' ? 'en' : 'zh';
-            updateLanguage();
-        }
-
         // 更新页面语言
         function updateLanguage() {
             const elements = document.querySelectorAll('[data-zh][data-en]');
@@ -408,4 +401,3 @@
 </body>
 
 </html>
-
