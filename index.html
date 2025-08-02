@@ -8,17 +8,15 @@
 
     <link rel="stylesheet" href="css/style.css">
     <!-- 加载PDF.js库 -->
-    <script src="js/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <!-- 加载pdf-lib库 -->
-    <script src="js/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
     <script>
         // 配置PDF.js worker
         if (typeof pdfjsLib !== 'undefined') {
             pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         }
     </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1033990832937812"
-     crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -138,6 +136,7 @@
                     </ul>
                 </div>
 
+                <!--
                 <div class="tool-card" onclick="showFeaturePage('pdf-to-word')">
                     <div class="tool-icon">📄</div>
                     <h3 class="tool-title">PDF转Word</h3>
@@ -146,6 +145,17 @@
                         <li>保持文档结构</li>
                         <li>识别文字和图片</li>
                         <li>支持表格转换</li>
+                    </ul>
+                </div> -->
+
+                <div class="tool-card" onclick="showFeaturePage('rotate-pages')">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">调整页面方向</h3>
+                    <p class="tool-description">旋转PDF页面到指定方向</p>
+                    <ul class="tool-features">
+                        <li>支持90°、180°、270°旋转</li>
+                        <li>可选择指定页面或全部页面</li>
+                        <li>保持原文档格式</li>
                     </ul>
                 </div>
             </div>
@@ -275,6 +285,48 @@
                     </div>
                 </div>
 
+                <!-- 旋转选项 -->
+                <div class="rotate-options" id="rotateOptions" style="display: none;">
+                    <div class="option-group">
+                        <label class="option-label">旋转角度</label>
+                        <div class="rotate-angle-grid">
+                            <div class="rotate-angle-item selected" data-angle="90">
+                                <div class="rotate-icon">➡️</div>
+                                <div class="rotate-label">顺时针90°</div>
+                            </div>
+                            <div class="rotate-angle-item" data-angle="180">
+                                <div class="rotate-icon">🔃</div>
+                                <div class="rotate-label">180°</div>
+                            </div>
+                            <div class="rotate-angle-item" data-angle="270">
+                                <div class="rotate-icon">⬅️</div>
+                                <div class="rotate-label">逆时针90°</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <label class="option-label">页面选择</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="rotateAll" name="rotateMode" value="all" checked>
+                                <label for="rotateAll">全部页面</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="rotateSpecific" name="rotateMode" value="specific">
+                                <label for="rotateSpecific">指定页面</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <label class="option-label">页面范围</label>
+                        <input type="text" class="page-input" id="rotatePageInput" placeholder="例如: 1-5, 8, 10-12"
+                            disabled>
+                        <div class="input-hint" id="rotatePageHint">选择"指定页面"后输入页面范围或页面号</div>
+                    </div>
+                </div>
+
                 <div class="progress-bar" id="progressBar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -285,6 +337,5 @@
     </div>
     <script src="js/script.js"></script>
 </body>
-
 
 </html>
