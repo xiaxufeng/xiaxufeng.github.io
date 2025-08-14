@@ -5,18 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-zh="合并PDF - 前端PDF工具箱" data-en="Merge PDF - Frontend PDF Toolbox">合并PDF - 前端PDF工具箱</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
 
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?fb78ad0a782ee1dc532158831ac87f92";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?fb78ad0a782ee1dc532158831ac87f92";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
     <style>
         * {
             margin: 0;
@@ -162,17 +163,28 @@ var _hmt = _hmt || [];
             margin-bottom: 0.5rem;
             border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
+            cursor: move;
+            user-select: none;
         }
 
         .file-item.dragging {
             opacity: 0.5;
-            transform: rotate(5deg);
+            transform: rotate(2deg) scale(1.05);
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         .file-item.drag-over {
             border-color: #667eea;
             background: #edf2f7;
             transform: translateY(-2px);
+            border-style: solid;
+            border-width: 2px;
+        }
+
+        .file-item:hover:not(.dragging) {
+            background: #edf2f7;
+            transform: translateY(-1px);
         }
 
         .file-info {
@@ -180,6 +192,7 @@ var _hmt = _hmt || [];
             align-items: center;
             gap: 1rem;
             flex: 1;
+            pointer-events: none;
         }
 
         .drag-handle {
@@ -189,6 +202,7 @@ var _hmt = _hmt || [];
             padding: 0.5rem;
             border-radius: 4px;
             transition: all 0.3s ease;
+            pointer-events: auto;
         }
 
         .drag-handle:hover {
@@ -236,6 +250,7 @@ var _hmt = _hmt || [];
             cursor: pointer;
             font-size: 0.9rem;
             transition: all 0.3s ease;
+            pointer-events: auto;
         }
 
         .remove-btn:hover {
@@ -283,6 +298,20 @@ var _hmt = _hmt || [];
             width: 0%;
         }
 
+        /* 拖拽指示器 */
+        .drop-indicator {
+            height: 3px;
+            background: #667eea;
+            border-radius: 2px;
+            margin: 2px 0;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .drop-indicator.show {
+            opacity: 1;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding-top: 80px;
@@ -323,14 +352,17 @@ var _hmt = _hmt || [];
     <div class="container">
         <header class="feature-header">
             <h1 class="feature-title" data-zh="合并PDF" data-en="Merge PDF">合并PDF</h1>
-            <p class="feature-subtitle" data-zh="将多个PDF文件合并为一个完整的文档" data-en="Combine multiple PDF files into a single document">将多个PDF文件合并为一个完整的文档</p>
+            <p class="feature-subtitle" data-zh="将多个PDF文件合并为一个完整的文档"
+                data-en="Combine multiple PDF files into a single document">将多个PDF文件合并为一个完整的文档</p>
         </header>
 
         <div class="feature-content">
             <div class="upload-area" onclick="document.getElementById('fileInput').click()">
                 <div class="upload-icon">📎</div>
-                <div class="upload-text" data-zh="点击选择文件或拖拽到此处" data-en="Click to select files or drag and drop here">点击选择文件或拖拽到此处</div>
-                <div class="upload-hint" data-zh="支持多个PDF格式文件，可拖拽调整合并顺序" data-en="Support multiple PDF format files, drag to adjust merge order">支持多个PDF格式文件，可拖拽调整合并顺序</div>
+                <div class="upload-text" data-zh="点击选择文件或拖拽到此处" data-en="Click to select files or drag and drop here">
+                    点击选择文件或拖拽到此处</div>
+                <div class="upload-hint" data-zh="支持多个PDF格式文件，可拖拽调整合并顺序"
+                    data-en="Support multiple PDF format files, drag to adjust merge order">支持多个PDF格式文件，可拖拽调整合并顺序</div>
             </div>
 
             <input type="file" id="fileInput" accept=".pdf" multiple>
@@ -341,17 +373,20 @@ var _hmt = _hmt || [];
                 <div class="progress-fill" id="progressFill"></div>
             </div>
 
-            <button class="btn" id="processBtn" onclick="mergeFiles()" data-zh="开始合并" data-en="Start Merging">开始合并</button>
+            <button class="btn" id="processBtn" onclick="mergeFiles()" data-zh="开始合并"
+                data-en="Start Merging">开始合并</button>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
-    
+
     <script>
         // 语言管理
         let currentLanguage = 'zh';
         let fileData = [];
+        let draggedItem = null;
+        let draggedIndex = -1;
 
         // 检测系统语言并设置初始语言
         function initLanguage() {
@@ -397,6 +432,8 @@ var _hmt = _hmt || [];
             fileData.forEach((item, index) => {
                 const fileItem = document.createElement('div');
                 fileItem.className = 'file-item';
+                fileItem.draggable = true;
+                fileItem.dataset.index = index;
                 fileItem.innerHTML = `
                     <div class="file-info">
                         <div class="drag-handle">⋮⋮</div>
@@ -408,10 +445,86 @@ var _hmt = _hmt || [];
                     </div>
                     <button class="remove-btn" onclick="removeFile(${index})">删除</button>
                 `;
+
+                // 添加拖拽事件监听器
+                addDragEventListeners(fileItem);
                 fileList.appendChild(fileItem);
             });
 
             document.getElementById('processBtn').disabled = fileData.length < 2;
+        }
+
+        function addDragEventListeners(element) {
+            element.addEventListener('dragstart', handleDragStart);
+            element.addEventListener('dragend', handleDragEnd);
+            element.addEventListener('dragover', handleDragOver);
+            element.addEventListener('dragenter', handleDragEnter);
+            element.addEventListener('dragleave', handleDragLeave);
+            element.addEventListener('drop', handleDrop);
+        }
+
+        function handleDragStart(e) {
+            draggedItem = this;
+            draggedIndex = parseInt(this.dataset.index);
+            this.classList.add('dragging');
+
+            // 设置拖拽效果
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.outerHTML);
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+
+            // 清理所有拖拽相关的样式
+            document.querySelectorAll('.file-item').forEach(item => {
+                item.classList.remove('drag-over');
+            });
+
+            draggedItem = null;
+            draggedIndex = -1;
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            if (this !== draggedItem) {
+                this.classList.add('drag-over');
+            }
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            if (this !== draggedItem) {
+                const dropIndex = parseInt(this.dataset.index);
+
+                if (draggedIndex !== -1 && dropIndex !== -1) {
+                    // 重新排列数组
+                    const draggedFile = fileData[draggedIndex];
+                    fileData.splice(draggedIndex, 1);
+                    fileData.splice(dropIndex, 0, draggedFile);
+
+                    // 更新文件列表
+                    updateFileList();
+                }
+            }
+
+            this.classList.remove('drag-over');
+            return false;
         }
 
         function removeFile(index) {
@@ -472,9 +585,9 @@ var _hmt = _hmt || [];
             progressFill.style.width = '0%';
         }
 
-        // 拖拽上传
+        // 拖拽上传 
         const uploadArea = document.querySelector('.upload-area');
-        
+
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadArea.classList.add('dragover');
@@ -487,7 +600,7 @@ var _hmt = _hmt || [];
         uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
             uploadArea.classList.remove('dragover');
-            
+
             const files = Array.from(e.dataTransfer.files);
             files.forEach(file => {
                 if (file.type === 'application/pdf') {
@@ -506,3 +619,6 @@ var _hmt = _hmt || [];
             initLanguage();
         });
     </script>
+</body>
+
+</html>
