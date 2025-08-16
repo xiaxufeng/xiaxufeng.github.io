@@ -5,6 +5,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDF页面裁剪工具 - 多页支持</title>
+
+    <!-- SEO优化 meta 标签 -->
+    <meta name="description" content="免费在线PDF裁剪工具，支持PDF页面裁剪、PDF分割、A4裁A5、标签打印。多页面批量处理，自定义尺寸，无需安装软件，浏览器直接使用。">
+    
+    <meta name="keywords" content="PDF裁剪,PDF页面裁剪,PDF A4裁A5,PDF页面分割,PDF标签打印,PDF切割,PDF尺寸调整,在线PDF工具,PDF编辑器,PDF批量处理">
+    
+    <meta name="author" content="PDF裁剪工具">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph 标签 (社交媒体分享) -->
+    <meta property="og:title" content="PDF裁剪工具 - 在线PDF页面裁剪分割">
+    <meta property="og:description" content="专业的在线PDF裁剪工具，支持多页面批量处理，自定义尺寸裁剪">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xiaxufeng.github.io">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PDF裁剪工具",
+        "description": "免费在线PDF裁剪工具，支持PDF页面裁剪、分割、A4裁A5、标签打印",
+        "url": "https://xiaxufeng.github.io",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>
@@ -29,6 +63,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             line-height: 1.6;
+            padding-top: 100px;
         }
 
         .container {
@@ -38,6 +73,41 @@
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* 导航栏 */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
 
         h1 {
@@ -661,6 +731,13 @@
 </head>
 
 <body>
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <a href="index.html" class="logo" data-zh="前端PDF工具箱" data-en="Frontend PDF Toolbox">前端PDF工具箱</a>
+        <div class="nav-right">
+            <a href="index.html" class="back-btn" data-zh="← 返回首页" data-en="← Back to Home">← 返回首页</a>
+        </div>
+    </nav>
     <div class="container">
         <h1>PDF页面裁剪工具 - 多尺寸支持 (多页支持)</h1>
 
