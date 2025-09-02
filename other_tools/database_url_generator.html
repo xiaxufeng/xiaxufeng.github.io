@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据库URL生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .form-container {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        select, input[type="text"], input[type="password"], input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .password-field {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .result-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .url-container {
+            position: relative;
+            background: #2d3748;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.95rem;
+            color: #e2e8f0;
+            word-break: break-all;
+            line-height: 1.5;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4facfe;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #3182ce;
+            transform: translateY(-1px);
+        }
+
+        .copy-btn.copied {
+            background: #10b981;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            body {
+                padding: 0;
+            }
+        }
+
+        .db-type-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .db-type-btn {
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .db-type-btn:hover {
+            border-color: #4facfe;
+        }
+
+        .db-type-btn.active {
+            border-color: #4facfe;
+            background: #4facfe;
+            color: white;
+        }
+
+        .field-hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗄️ 数据库URL生成器</h1>
+            <p>快速生成各种数据库的连接URL</p>
+        </div>
+
+        <div class="form-container">
+            <!-- 数据库类型选择 -->
+            <div class="form-group">
+                <label>选择数据库类型</label>
+                <div class="db-type-selector">
+                    <div class="db-type-btn active" data-type="mysql">MySQL</div>
+                    <div class="db-type-btn" data-type="postgresql">PostgreSQL</div>
+                    <div class="db-type-btn" data-type="mongodb">MongoDB</div>
+                    <div class="db-type-btn" data-type="redis">Redis</div>
+                    <div class="db-type-btn" data-type="sqlite">SQLite</div>
+                    <div class="db-type-btn" data-type="mariadb">MariaDB</div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="form-group" id="host-field">
+                    <label for="host">主机地址</label>
+                    <input type="text" id="host" value="localhost" placeholder="localhost">
+                </div>
+
+                <div class="form-group" id="port-field">
+                    <label for="port">端口</label>
+                    <input type="number" id="port" value="3306" placeholder="3306">
+                </div>
+
+                <div class="form-group" id="username-field">
+                    <label for="username">用户名</label>
+                    <input type="text" id="username" placeholder="root">
+                </div>
+
+                <div class="form-group" id="password-field">
+                    <label for="password">密码</label>
+                    <div class="password-field">
+                        <input type="password" id="password" placeholder="password">
+                        <button type="button" class="password-toggle" onclick="togglePassword()">👁️</button>
+                    </div>
+                </div>
+
+                <div class="form-group" id="database-field">
+                    <label for="database">数据库名</label>
+                    <input type="text" id="database" placeholder="mydb">
+                </div>
+
+                <div class="form-group field-hidden" id="schema-field">
+                    <label for="schema">模式名 (Schema)</label>
+                    <input type="text" id="schema" placeholder="public">
+                </div>
+
+                <div class="form-group field-hidden" id="charset-field">
+                    <label for="charset">字符集</label>
+                    <input type="text" id="charset" value="utf8mb4" placeholder="utf8mb4">
+                </div>
+            </div>
+
+            <div class="form-group" id="ssl-field">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="ssl">
+                    <label for="ssl">启用SSL连接</label>
+                </div>
+            </div>
+
+            <!-- 结果显示 -->
+            <div class="result-section">
+                <div class="result-label">生成的数据库URL：</div>
+                <div class="url-container">
+                    <span id="generated-url">请填写数据库连接信息</span>
+                    <button class="copy-btn" onclick="copyToClipboard()">复制</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentDbType = 'mysql';
+        let showPassword = false;
+
+        const dbConfigs = {
+            mysql: {
+                name: 'MySQL',
+                defaultPort: '3306',
+                fields: ['host', 'port', 'username', 'password', 'database', 'ssl', 'charset'],
+                generateUrl: (config) => {
+                    let url = `mysql://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`;
+                    const params = [];
+                    if (config.ssl) params.push('ssl=true');
+                    if (config.charset) params.push(`charset=${config.charset}`);
+                    if (params.length > 0) url += '?' + params.join('&');
+                    return url;
+                }
+            },
+            postgresql: {
+                name: 'PostgreSQL',
+                defaultPort: '5432',
+                fields: ['host', 'port', 'username', 'password', 'database', 'schema', 'ssl'],
+                generateUrl: (config) => {
+                    let url = `postgresql://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`;
+                    const params = [];
+                    if (config.schema) params.push(`schema=${config.schema}`);
+                    if (config.ssl) params.push('ssl=true');
+                    if (params.length > 0) url += '?' + params.join('&');
+                    return url;
+                }
+            },
+            mongodb: {
+                name: 'MongoDB',
+                defaultPort: '27017',
+                fields: ['host', 'port', 'username', 'password', 'database', 'ssl'],
+                generateUrl: (config) => {
+                    let url = `mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`;
+                    if (config.ssl) url += '?ssl=true';
+                    return url;
+                }
+            },
+            redis: {
+                name: 'Redis',
+                defaultPort: '6379',
+                fields: ['host', 'port', 'username', 'password', 'database', 'ssl'],
+                generateUrl: (config) => {
+                    let auth = '';
+                    if (config.username && config.password) {
+                        auth = `${config.username}:${config.password}@`;
+                    } else if (config.password) {
+                        auth = `:${config.password}@`;
+                    }
+                    let url = `redis://${auth}${config.host}:${config.port}/${config.database || '0'}`;
+                    if (config.ssl) url += '?ssl=true';
+                    return url;
+                }
+            },
+            sqlite: {
+                name: 'SQLite',
+                defaultPort: '',
+                fields: ['database'],
+                generateUrl: (config) => {
+                    return `sqlite:///${config.database}`;
+                }
+            },
+            mariadb: {
+                name: 'MariaDB',
+                defaultPort: '3306',
+                fields: ['host', 'port', 'username', 'password', 'database', 'ssl', 'charset'],
+                generateUrl: (config) => {
+                    let url = `mariadb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`;
+                    const params = [];
+                    if (config.ssl) params.push('ssl=true');
+                    if (config.charset) params.push(`charset=${config.charset}`);
+                    if (params.length > 0) url += '?' + params.join('&');
+                    return url;
+                }
+            }
+        };
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            updateForm();
+            generateUrl();
+        });
+
+        function setupEventListeners() {
+            // 数据库类型选择
+            document.querySelectorAll('.db-type-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.db-type-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentDbType = this.dataset.type;
+                    updateForm();
+                    generateUrl();
+                });
+            });
+
+            // 输入字段监听
+            ['host', 'port', 'username', 'password', 'database', 'schema', 'charset'].forEach(field => {
+                const element = document.getElementById(field);
+                if (element) {
+                    element.addEventListener('input', generateUrl);
+                }
+            });
+
+            // SSL复选框
+            document.getElementById('ssl').addEventListener('change', generateUrl);
+        }
+
+        function updateForm() {
+            const config = dbConfigs[currentDbType];
+            
+            // 隐藏所有字段
+            ['host-field', 'port-field', 'username-field', 'password-field', 'database-field', 'schema-field', 'charset-field', 'ssl-field'].forEach(fieldId => {
+                document.getElementById(fieldId).classList.add('field-hidden');
+            });
+
+            // 显示当前数据库类型需要的字段
+            config.fields.forEach(field => {
+                document.getElementById(field + '-field').classList.remove('field-hidden');
+            });
+
+            // 设置默认端口
+            if (config.defaultPort) {
+                document.getElementById('port').value = config.defaultPort;
+            }
+
+            // 特殊处理
+            if (currentDbType === 'postgresql') {
+                document.getElementById('schema').value = 'public';
+            } else if (currentDbType === 'mysql' || currentDbType === 'mariadb') {
+                document.getElementById('charset').value = 'utf8mb4';
+            } else if (currentDbType === 'redis') {
+                document.getElementById('database').placeholder = '0';
+            }
+        }
+
+        function generateUrl() {
+            const config = {
+                host: document.getElementById('host')?.value || '',
+                port: document.getElementById('port')?.value || '',
+                username: document.getElementById('username')?.value || '',
+                password: document.getElementById('password')?.value || '',
+                database: document.getElementById('database')?.value || '',
+                schema: document.getElementById('schema')?.value || '',
+                charset: document.getElementById('charset')?.value || '',
+                ssl: document.getElementById('ssl')?.checked || false
+            };
+
+            const dbConfig = dbConfigs[currentDbType];
+            
+            // 检查必要字段
+            if (currentDbType !== 'sqlite') {
+                if (!config.host || !config.port || !config.database) {
+                    document.getElementById('generated-url').textContent = '请填写完整的连接信息';
+                    return;
+                }
+            } else {
+                if (!config.database) {
+                    document.getElementById('generated-url').textContent = '请输入数据库文件路径';
+                    return;
+                }
+            }
+
+            try {
+                const url = dbConfig.generateUrl(config);
+                document.getElementById('generated-url').textContent = url;
+            } catch (error) {
+                document.getElementById('generated-url').textContent = '生成URL时出错: ' + error.message;
+            }
+        }
+
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const toggleBtn = document.querySelector('.password-toggle');
+            
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleBtn.textContent = '🙈';
+            } else {
+                passwordField.type = 'password';
+                toggleBtn.textContent = '👁️';
+            }
+        }
+
+        async function copyToClipboard() {
+            const url = document.getElementById('generated-url').textContent;
+            const copyBtn = document.querySelector('.copy-btn');
+            
+            if (url === '请填写数据库连接信息' || url === '请填写完整的连接信息') {
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(url);
+                copyBtn.textContent = '已复制!';
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyBtn.textContent = '复制';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                // 备用复制方法
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                copyBtn.textContent = '已复制!';
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyBtn.textContent = '复制';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
