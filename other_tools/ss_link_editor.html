@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SS链接信息修改器</title>
+    <title>SS链接信息修改器 - 增强版</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <style>
         * {
@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
@@ -39,6 +39,14 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        .version-tag {
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            margin-top: -20px;
+            margin-bottom: 20px;
         }
 
         .section {
@@ -63,6 +71,18 @@
             margin-bottom: 8px;
             font-weight: 500;
             color: #555;
+        }
+
+        .label-with-hint {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: #999;
+            font-weight: normal;
         }
 
         input[type="text"], input[type="number"], select, textarea {
@@ -95,6 +115,45 @@
 
         .form-grid-full {
             grid-column: 1 / -1;
+        }
+
+        .plugin-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .plugin-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .plugin-toggle {
+            margin-right: 10px;
+        }
+
+        .plugin-fields {
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .plugin-fields.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         button {
@@ -170,6 +229,15 @@
             margin-top: 10px;
         }
 
+        .warning {
+            color: #f39c12;
+            background: rgba(243, 156, 18, 0.1);
+            border: 1px solid rgba(243, 156, 18, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+
         .copy-btn {
             background: linear-gradient(45deg, #11998e, #38ef7d);
             padding: 8px 16px;
@@ -233,6 +301,13 @@
             gap: 10px;
             margin: 15px 0;
             font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .qr-options label {
+            margin: 0;
+            font-weight: 500;
+            color: #555;
         }
 
         .qr-options select {
@@ -240,10 +315,23 @@
             border-radius: 6px;
             border: 1px solid #ddd;
             font-size: 14px;
+            width: auto;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            cursor: pointer;
         }
 
         @media (max-width: 768px) {
-            .form-grid {
+            .form-grid, .plugin-fields.active {
                 grid-template-columns: 1fr;
             }
             
@@ -274,11 +362,12 @@
 <body>
     <div class="container">
         <h1>🔧 SS链接信息修改器</h1>
+        <div class="version-tag">增强版 v2.0 - 支持Simple-obfs插件</div>
         
         <div class="section">
             <div class="section-title">📋 粘贴原始SS链接</div>
             <div class="input-group">
-                <textarea id="originalSS" placeholder="请粘贴原始的SS链接...&#10;例如: ss://YWVzLTI1Ni1nY206cGFzc3dvcmQ@192.168.1.1:8388#服务器名称"></textarea>
+                <textarea id="originalSS" placeholder="请粘贴原始的SS链接...&#10;例如: ss://YWVzLTI1Ni1nY206cGFzc3dvcmQ@192.168.1.1:8388#服务器名称&#10;或包含插件: ss://YWVzLTI1Ni1nY206cGFzc3dvcmQ@192.168.1.1:8388/?plugin=obfs-local%3Bobfs%3Dhttp%3Bobfs-host%3Dexample.com#服务器名称"></textarea>
                 <button class="btn-primary" onclick="parseSSLink()">🔍 解析SS链接</button>
             </div>
         </div>
@@ -289,15 +378,44 @@
                 <div class="input-group">
                     <label for="method">加密方式</label>
                     <select id="method">
-                        <option value="aes-256-gcm">aes-256-gcm</option>
-                        <option value="aes-192-gcm">aes-192-gcm</option>
-                        <option value="aes-128-gcm">aes-128-gcm</option>
-                        <option value="chacha20-ietf-poly1305">chacha20-ietf-poly1305</option>
-                        <option value="xchacha20-ietf-poly1305">xchacha20-ietf-poly1305</option>
-                        <option value="aes-256-cfb">aes-256-cfb</option>
-                        <option value="aes-192-cfb">aes-192-cfb</option>
-                        <option value="aes-128-cfb">aes-128-cfb</option>
-                        <option value="rc4-md5">rc4-md5</option>
+                        <optgroup label="AEAD 加密 (推荐)">
+                            <option value="aes-128-gcm">aes-128-gcm</option>
+                            <option value="aes-192-gcm">aes-192-gcm</option>
+                            <option value="aes-256-gcm">aes-256-gcm</option>
+                            <option value="chacha20-ietf-poly1305">chacha20-ietf-poly1305</option>
+                            <option value="xchacha20-ietf-poly1305">xchacha20-ietf-poly1305</option>
+                            <option value="2022-blake3-aes-128-gcm">2022-blake3-aes-128-gcm</option>
+                            <option value="2022-blake3-aes-256-gcm">2022-blake3-aes-256-gcm</option>
+                            <option value="2022-blake3-chacha20-poly1305">2022-blake3-chacha20-poly1305</option>
+                        </optgroup>
+                        <optgroup label="XChacha20 系列">
+                            <option value="xchacha20-poly1305">xchacha20-poly1305</option>
+                            <option value="xchacha20-ietf-poly1305">xchacha20-ietf-poly1305</option>
+                        </optgroup>
+                        <optgroup label="Blake3 系列 (最新)">
+                            <option value="blake3-aes-128-gcm">blake3-aes-128-gcm</option>
+                            <option value="blake3-aes-256-gcm">blake3-aes-256-gcm</option>
+                            <option value="blake3-chacha20-poly1305">blake3-chacha20-poly1305</option>
+                        </optgroup>
+                        <optgroup label="Stream 加密">
+                            <option value="aes-128-cfb">aes-128-cfb</option>
+                            <option value="aes-192-cfb">aes-192-cfb</option>
+                            <option value="aes-256-cfb">aes-256-cfb</option>
+                            <option value="aes-128-ctr">aes-128-ctr</option>
+                            <option value="aes-192-ctr">aes-192-ctr</option>
+                            <option value="aes-256-ctr">aes-256-ctr</option>
+                            <option value="camellia-128-cfb">camellia-128-cfb</option>
+                            <option value="camellia-192-cfb">camellia-192-cfb</option>
+                            <option value="camellia-256-cfb">camellia-256-cfb</option>
+                            <option value="bf-cfb">bf-cfb</option>
+                            <option value="chacha20">chacha20</option>
+                            <option value="chacha20-ietf">chacha20-ietf</option>
+                            <option value="salsa20">salsa20</option>
+                            <option value="rc4-md5">rc4-md5</option>
+                        </optgroup>
+                        <optgroup label="其他">
+                            <option value="none">none (不加密)</option>
+                        </optgroup>
                     </select>
                 </div>
                 <div class="input-group">
@@ -306,7 +424,7 @@
                 </div>
                 <div class="input-group">
                     <label for="server">服务器地址</label>
-                    <input type="text" id="server" placeholder="例如: 192.168.1.1">
+                    <input type="text" id="server" placeholder="例如: 192.168.1.1 或 example.com">
                 </div>
                 <div class="input-group">
                     <label for="port">端口</label>
@@ -315,6 +433,62 @@
                 <div class="input-group form-grid-full">
                     <label for="remark">备注名称</label>
                     <input type="text" id="remark" placeholder="输入服务器备注名称">
+                </div>
+            </div>
+
+            <div class="plugin-section">
+                <div class="plugin-header">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="enablePlugin" onchange="togglePlugin()">
+                        <label for="enablePlugin" style="margin: 0; cursor: pointer;">
+                            <strong>启用 Simple-obfs 插件</strong>
+                        </label>
+                    </div>
+                </div>
+                <div class="plugin-fields" id="pluginFields">
+                    <div class="input-group">
+                        <div class="label-with-hint">
+                            <label for="pluginName">插件名称</label>
+                            <span class="hint">常用: obfs-local, v2ray-plugin</span>
+                        </div>
+                        <select id="pluginName">
+                            <option value="obfs-local">obfs-local (Simple-obfs)</option>
+                            <option value="v2ray-plugin">v2ray-plugin</option>
+                            <option value="kcptun">kcptun</option>
+                            <option value="goquiet">goquiet</option>
+                            <option value="cloak">cloak</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="obfsMode">混淆模式</label>
+                        <select id="obfsMode">
+                            <option value="http">HTTP</option>
+                            <option value="tls">TLS</option>
+                            <option value="websocket">WebSocket (v2ray)</option>
+                            <option value="quic">QUIC (v2ray)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <div class="label-with-hint">
+                            <label for="obfsHost">混淆域名</label>
+                            <span class="hint">例: cloudflare.com</span>
+                        </div>
+                        <input type="text" id="obfsHost" placeholder="例如: cloudflare.com, bing.com">
+                    </div>
+                    <div class="input-group">
+                        <div class="label-with-hint">
+                            <label for="obfsUri">URI路径</label>
+                            <span class="hint">可选，HTTP模式可用</span>
+                        </div>
+                        <input type="text" id="obfsUri" placeholder="例如: /video (可留空)">
+                    </div>
+                    <div class="input-group form-grid-full">
+                        <div class="label-with-hint">
+                            <label for="pluginOpts">其他插件参数</label>
+                            <span class="hint">高级选项，分号分隔</span>
+                        </div>
+                        <input type="text" id="pluginOpts" placeholder="例如: mux=0;fast-open=true (可留空)">
+                    </div>
                 </div>
             </div>
         </div>
@@ -340,6 +514,11 @@
             <span class="qr-close" onclick="closeQRModal()">&times;</span>
             <h3 style="margin-bottom: 20px; color: #333;">📱 SS链接二维码</h3>
             <div class="qr-options">
+                <label for="linkFormat">链接格式:</label>
+                <select id="linkFormat" onchange="regenerateQRCode()">
+                    <option value="format1">格式1 (推荐)</option>
+                    <option value="format2">格式2 (备用)</option>
+                </select>
                 <label for="errorCorrectionLevel">容错率:</label>
                 <select id="errorCorrectionLevel">
                     <option value="L">低 (L)</option>
@@ -367,6 +546,36 @@
             }, 5000);
         }
 
+        function togglePlugin() {
+            const checkbox = document.getElementById('enablePlugin');
+            const pluginFields = document.getElementById('pluginFields');
+            
+            if (checkbox.checked) {
+                pluginFields.classList.add('active');
+            } else {
+                pluginFields.classList.remove('active');
+            }
+        }
+
+        function parsePluginString(pluginStr) {
+            // 解析插件参数字符串，例如: obfs-local;obfs=http;obfs-host=example.com
+            const params = {};
+            const parts = decodeURIComponent(pluginStr).split(';');
+            
+            // 第一部分是插件名称
+            params.pluginName = parts[0];
+            
+            // 解析其余参数
+            for (let i = 1; i < parts.length; i++) {
+                const [key, value] = parts[i].split('=');
+                if (key && value) {
+                    params[key] = value;
+                }
+            }
+            
+            return params;
+        }
+
         function parseSSLink() {
             const input = document.getElementById('originalSS').value.trim();
             
@@ -382,24 +591,43 @@
                 }
 
                 // 解析SS链接
-                const ssUrl = input.substring(5); // 移除 'ss://'
-                let linkPart, remark = '';
+                let ssUrl = input.substring(5); // 移除 'ss://'
+                let linkPart, remark = '', pluginInfo = '';
                 
-                // 分离链接主体和备注
+                // 先分离备注（#后的部分）
                 if (ssUrl.includes('#')) {
                     const hashIndex = ssUrl.indexOf('#');
-                    linkPart = ssUrl.substring(0, hashIndex);
                     remark = decodeURIComponent(ssUrl.substring(hashIndex + 1));
+                    ssUrl = ssUrl.substring(0, hashIndex);
+                }
+                
+                // 检查是否包含插件参数（?plugin=或&plugin=）
+                if (ssUrl.includes('?plugin=') || ssUrl.includes('&plugin=')) {
+                    const pluginIndex = ssUrl.indexOf('?plugin=') !== -1 ? ssUrl.indexOf('?plugin=') : ssUrl.indexOf('&plugin=');
+                    const pluginStartIndex = pluginIndex + (ssUrl.indexOf('?plugin=') !== -1 ? 8 : 8);
+                    pluginInfo = ssUrl.substring(pluginStartIndex);
+                    linkPart = ssUrl.substring(0, pluginIndex);
+                    
+                    // 处理可能存在的其他查询参数
+                    if (pluginInfo.includes('&')) {
+                        pluginInfo = pluginInfo.substring(0, pluginInfo.indexOf('&'));
+                    }
+                } else if (ssUrl.includes('/')) {
+                    // 处理包含路径的情况（有时插件参数在路径后）
+                    const slashIndex = ssUrl.indexOf('/');
+                    linkPart = ssUrl.substring(0, slashIndex);
+                    const pathPart = ssUrl.substring(slashIndex);
+                    if (pathPart.includes('?plugin=')) {
+                        const pluginIndex = pathPart.indexOf('?plugin=');
+                        pluginInfo = pathPart.substring(pluginIndex + 8);
+                    }
                 } else {
                     linkPart = ssUrl;
                 }
 
                 console.log('链接主体部分:', linkPart);
+                console.log('插件信息:', pluginInfo);
 
-                // SS链接有两种格式：
-                // 1. ss://base64(method:password)@server:port
-                // 2. ss://base64(method:password@server:port)
-                
                 let method, password, server, port;
 
                 if (linkPart.includes('@')) {
@@ -450,7 +678,7 @@
                     console.log('解码后的完整信息:', decodedInfo);
 
                     // 查找@符号
-                    const atIndex = decodedInfo.indexOf('@');
+                    const atIndex = decodedInfo.lastIndexOf('@');
                     if (atIndex === -1) {
                         throw new Error('解码后的信息中缺少@符号，链接格式不正确');
                     }
@@ -489,16 +717,71 @@
                     throw new Error('端口号必须是1-65535之间的数字');
                 }
 
-                console.log('解析结果:', { method, password, server, port, remark });
+                console.log('解析结果:', { method, password, server, port, remark, pluginInfo });
 
                 // 填充表单
                 document.getElementById('method').value = method;
                 document.getElementById('password').value = password;
                 document.getElementById('server').value = server;
-                document.getElementById('port').value = portNum; // 确保端口是数字
+                document.getElementById('port').value = portNum;
                 document.getElementById('remark').value = remark;
 
-                parsedData = { method, password, server, port: portNum, remark };
+                // 解析并填充插件信息
+                if (pluginInfo) {
+                    const pluginParams = parsePluginString(pluginInfo);
+                    console.log('解析的插件参数:', pluginParams);
+                    
+                    document.getElementById('enablePlugin').checked = true;
+                    togglePlugin();
+                    
+                    // 设置插件名称
+                    if (pluginParams.pluginName) {
+                        const pluginSelect = document.getElementById('pluginName');
+                        // 尝试匹配选项，如果没有匹配的就使用第一个
+                        let optionFound = false;
+                        for (let option of pluginSelect.options) {
+                            if (option.value === pluginParams.pluginName) {
+                                pluginSelect.value = pluginParams.pluginName;
+                                optionFound = true;
+                                break;
+                            }
+                        }
+                        if (!optionFound) {
+                            showMessage(`插件 ${pluginParams.pluginName} 不在预设列表中，已选择默认插件`, 'warning');
+                        }
+                    }
+                    
+                    // 设置混淆模式
+                    if (pluginParams.obfs) {
+                        document.getElementById('obfsMode').value = pluginParams.obfs;
+                    }
+                    
+                    // 设置混淆域名
+                    if (pluginParams['obfs-host']) {
+                        document.getElementById('obfsHost').value = pluginParams['obfs-host'];
+                    }
+                    
+                    // 设置URI路径
+                    if (pluginParams['obfs-uri'] || pluginParams.uri) {
+                        document.getElementById('obfsUri').value = pluginParams['obfs-uri'] || pluginParams.uri;
+                    }
+                    
+                    // 处理其他参数
+                    const otherParams = [];
+                    for (const [key, value] of Object.entries(pluginParams)) {
+                        if (!['pluginName', 'obfs', 'obfs-host', 'obfs-uri', 'uri'].includes(key)) {
+                            otherParams.push(`${key}=${value}`);
+                        }
+                    }
+                    if (otherParams.length > 0) {
+                        document.getElementById('pluginOpts').value = otherParams.join(';');
+                    }
+                } else {
+                    document.getElementById('enablePlugin').checked = false;
+                    togglePlugin();
+                }
+
+                                parsedData = { method, password, server, port: portNum, remark };
                 showMessage('SS链接解析成功！可以开始修改配置信息。', 'success');
 
             } catch (error) {
@@ -516,6 +799,7 @@
             const server = document.getElementById('server').value;
             const port = document.getElementById('port').value;
             const remark = document.getElementById('remark').value;
+            const enablePlugin = document.getElementById('enablePlugin').checked;
 
             // 验证必填字段
             if (!method || !password || !server || !port) {
@@ -531,29 +815,124 @@
             }
 
             try {
-                // 使用格式2构建SS链接: ss://base64(method:password@server:port)#remark
-                const fullInfo = `${method}:${password}@${server}:${port}`;
-                const encodedInfo = btoa(fullInfo);
+                // 构建基础SS链接
+                const userInfo = `${method}:${password}`;
+                const encodedUserInfo = btoa(userInfo);
                 
-                let ssLink = `ss://${encodedInfo}`;
+                let ssLink = `ss://${encodedUserInfo}@${server}:${port}`;
                 
+                // 添加插件参数
+                if (enablePlugin) {
+                    const pluginName = document.getElementById('pluginName').value;
+                    const obfsMode = document.getElementById('obfsMode').value;
+                    const obfsHost = document.getElementById('obfsHost').value;
+                    const obfsUri = document.getElementById('obfsUri').value;
+                    const pluginOpts = document.getElementById('pluginOpts').value;
+                    
+                    if (!pluginName || !obfsMode) {
+                        showMessage('请填写插件名称和混淆模式');
+                        return;
+                    }
+                    
+                    // 构建插件参数字符串
+                    let pluginStr = pluginName;
+                    pluginStr += `;obfs=${obfsMode}`;
+                    
+                    if (obfsHost) {
+                        pluginStr += `;obfs-host=${obfsHost}`;
+                    }
+                    
+                    if (obfsUri && obfsMode === 'http') {
+                        pluginStr += `;obfs-uri=${obfsUri}`;
+                    }
+                    
+                    // 添加其他插件参数
+                    if (pluginOpts) {
+                        const extraOpts = pluginOpts.split(';').filter(opt => opt.trim());
+                        for (const opt of extraOpts) {
+                            if (opt.includes('=')) {
+                                pluginStr += `;${opt.trim()}`;
+                            }
+                        }
+                    }
+                    
+                    ssLink += `/?plugin=${encodeURIComponent(pluginStr)}`;
+                }
+                
+                // 添加备注
                 if (remark) {
                     ssLink += `#${encodeURIComponent(remark)}`;
+                }
+                
+                // 同时生成格式2的链接（完整信息Base64编码）
+                const fullInfo = `${method}:${password}@${server}:${port}`;
+                const encodedFullInfo = btoa(fullInfo);
+                let ssLinkFormat2 = `ss://${encodedFullInfo}`;
+                
+                if (enablePlugin) {
+                    const pluginName = document.getElementById('pluginName').value;
+                    const obfsMode = document.getElementById('obfsMode').value;
+                    const obfsHost = document.getElementById('obfsHost').value;
+                    const obfsUri = document.getElementById('obfsUri').value;
+                    const pluginOpts = document.getElementById('pluginOpts').value;
+                    
+                    let pluginStr = pluginName;
+                    pluginStr += `;obfs=${obfsMode}`;
+                    
+                    if (obfsHost) {
+                        pluginStr += `;obfs-host=${obfsHost}`;
+                    }
+                    
+                    if (obfsUri && obfsMode === 'http') {
+                        pluginStr += `;obfs-uri=${obfsUri}`;
+                    }
+                    
+                    if (pluginOpts) {
+                        const extraOpts = pluginOpts.split(';').filter(opt => opt.trim());
+                        for (const opt of extraOpts) {
+                            if (opt.includes('=')) {
+                                pluginStr += `;${opt.trim()}`;
+                            }
+                        }
+                    }
+                    
+                    ssLinkFormat2 += `/?plugin=${encodeURIComponent(pluginStr)}`;
+                }
+                
+                if (remark) {
+                    ssLinkFormat2 += `#${encodeURIComponent(remark)}`;
                 }
 
                 // 显示结果
                 const resultDiv = document.getElementById('result');
                 const resultText = document.getElementById('resultText');
                 
+                let pluginInfoHtml = '';
+                if (enablePlugin) {
+                    const pluginName = document.getElementById('pluginName').value;
+                    const obfsMode = document.getElementById('obfsMode').value;
+                    const obfsHost = document.getElementById('obfsHost').value || '无';
+                    const obfsUri = document.getElementById('obfsUri').value || '无';
+                    
+                    pluginInfoHtml = `
+                    <br>
+                    <strong>插件配置信息：</strong><br>
+                    • 插件名称: ${pluginName}<br>
+                    • 混淆模式: ${obfsMode}<br>
+                    • 混淆域名: ${obfsHost}<br>
+                    • URI路径: ${obfsUri}<br>`;
+                }
+                
                 resultText.innerHTML = `
-                    <strong>生成的SS链接（格式2）：</strong><br>
+                    <strong>生成的SS链接（格式1 - 推荐）：</strong><br>
                     <div style="margin-top: 10px; padding: 10px; background: white; border-radius: 5px; word-break: break-all;">
                         ${ssLink}
                     </div>
                     <br>
-                    <strong>编码信息：</strong><br>
-                    • 原始字符串: ${fullInfo}<br>
-                    • Base64编码: ${encodedInfo}<br>
+                    <strong>备用SS链接（格式2）：</strong><br>
+                    <div style="margin-top: 10px; padding: 10px; background: white; border-radius: 5px; word-break: break-all;">
+                        ${ssLinkFormat2}
+                    </div>
                     <br>
                     <strong>配置信息：</strong><br>
                     • 加密方式: ${method}<br>
@@ -561,14 +940,16 @@
                     • 服务器: ${server}<br>
                     • 端口: ${port}<br>
                     • 备注: ${remark || '无'}<br>
-                    • 链接格式: 格式2 (完整信息Base64编码)
+                    ${pluginInfoHtml}
                 `;
                 
                 resultDiv.style.display = 'block';
-                showMessage('新的SS链接生成成功！！（使用格式2）', 'success');
+                showMessage('新的SS链接生成成功！（提供两种格式供选择）', 'success');
 
                 // 保存到全局变量供复制和二维码使用
                 window.generatedLink = ssLink;
+                window.generatedLinkFormat1 = ssLink;
+                window.generatedLinkFormat2 = ssLinkFormat2;
 
             } catch (error) {
                 showMessage(`生成失败: ${error.message}`);
@@ -615,6 +996,15 @@
         function generateQRCode() {
             const qrcodeDiv = document.getElementById('qrcode');
             const errorCorrectionLevel = document.getElementById('errorCorrectionLevel').value;
+            const linkFormat = document.getElementById('linkFormat').value;
+            
+            // 根据选择的格式决定使用哪个链接
+            let linkToEncode = window.generatedLink;
+            if (linkFormat === 'format2' && window.generatedLinkFormat2) {
+                linkToEncode = window.generatedLinkFormat2;
+            } else if (linkFormat === 'format1' && window.generatedLinkFormat1) {
+                linkToEncode = window.generatedLinkFormat1;
+            }
             
             // 清空之前的二维码
             qrcodeDiv.innerHTML = '';
@@ -623,7 +1013,7 @@
             try {
                 // 使用qrcode-generator库
                 const qr = qrcode(0, errorCorrectionLevel);
-                qr.addData(window.generatedLink);
+                qr.addData(linkToEncode);
                 qr.make();
                 
                 // 创建二维码图片
@@ -670,44 +1060,15 @@
                 qrContainer.appendChild(qrCanvas);
                 qrcodeDiv.appendChild(qrContainer);
                 
+                // 添加格式说明
+                //const formatInfo = document.createElement('p');
+                //formatInfo.style.cssText = 'color: #888; font-size: 12px; margin-top: 10px;';
+                //formatInfo.textContent = `当前使用: ${linkFormat === 'format2' ? '格式2 (完整Base64)' : '格式1 (分离式)'}`;
+                //qrcodeDiv.appendChild(formatInfo);
+                
             } catch (error) {
                 console.error('二维码生成错误:', error);
-                
-                // 降级方案：使用在线二维码生成API
-                try {
-                    const encodedData = encodeURIComponent(window.generatedLink);
-                    const qrImg = document.createElement('img');
-                    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodedData}&ecc=${errorCorrectionLevel}&margin=2`;
-                    qrImg.alt = 'SS链接二维码';
-                    qrImg.style.cssText = `
-                        border-radius: 12px;
-                        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-                        background: white;
-                        padding: 0;
-                        margin: 0;
-                    `;
-                    
-                    // 创建美化容器
-                    const qrContainer = document.createElement('div');
-                    qrContainer.style.cssText = `
-                        display: inline-block;
-                        padding: 15px;
-                        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-                        border-radius: 15px;
-                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-                    `;
-                    
-                    qrImg.onload = function() {
-                        qrContainer.appendChild(qrImg);
-                        qrcodeDiv.appendChild(qrContainer);
-                    };
-                    qrImg.onerror = function() {
-                        showMessage('二维码生成失败，请检查网络连接或手动复制链接');
-                    };
-                } catch (fallbackError) {
-                    console.error('降级方案也失败:', fallbackError);
-                    showMessage('二维码生成失败，请手动复制链接使用');
-                }
+                showMessage('二维码生成失败，请手动复制链接使用');
             }
         }
 
@@ -734,6 +1095,34 @@
                 e.target.style.borderColor = '#e74c3c';
             } else {
                 e.target.style.borderColor = '#e1e5e9';
+            }
+        });
+
+        // 监听插件名称变化，自动调整相关选项
+        document.getElementById('pluginName').addEventListener('change', function(e) {
+            const pluginName = e.target.value;
+            const obfsModeSelect = document.getElementById('obfsMode');
+            
+            // 根据不同插件调整可用的混淆模式
+            if (pluginName === 'v2ray-plugin') {
+                obfsModeSelect.innerHTML = `
+                    <option value="websocket">WebSocket</option>
+                    <option value="quic">QUIC</option>
+                    <option value="http">HTTP</option>
+                `;
+            } else if (pluginName === 'obfs-local') {
+                obfsModeSelect.innerHTML = `
+                    <option value="http">HTTP</option>
+                    <option value="tls">TLS</option>
+                `;
+            } else {
+                // 其他插件使用通用选项
+                obfsModeSelect.innerHTML = `
+                    <option value="http">HTTP</option>
+                    <option value="tls">TLS</option>
+                    <option value="websocket">WebSocket</option>
+                    <option value="quic">QUIC</option>
+                `;
             }
         });
 
