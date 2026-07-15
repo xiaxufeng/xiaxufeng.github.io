@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF转图片 - 前端PDF工具箱</title>
-    <meta name="description" content="免费在线PDF转图片工具，支持导出为JPG、PNG格式，自定义图片质量，批量转换页面。纯前端处理，保护隐私。">
-    <meta name="keywords" content="PDF转图片,PDF转JPG,PDF转PNG,在线PDF转图片工具">
-    <link rel="canonical" href="https://xiaxufeng.github.io/pdf/pdf-to-images.html">
-    <link rel="alternate" hreflang="zh-CN" href="https://xiaxufeng.github.io/pdf/pdf-to-images.html">
-    <link rel="alternate" hreflang="en" href="https://xiaxufeng.github.io/pdf/en/pdf-to-images.html">
-    <link rel="alternate" hreflang="x-default" href="https://xiaxufeng.github.io/pdf/pdf-to-images.html">
-    <meta property="og:title" content="PDF转图片 - 前端PDF工具箱">
-    <meta property="og:description" content="免费在线PDF转图片工具，支持导出为JPG、PNG格式，自定义图片质量，批量转换页面。纯前端处理，保护隐私。">
+    <title>Remove Annotations - Frontend PDF Toolbox</title>
+    <meta name="description" content="Free online tool to remove comments, annotations and markup from a PDF while keeping the original content, processed entirely in your browser.">
+    <meta name="keywords" content="remove PDF annotations,delete PDF comments,clear PDF markup,online PDF annotation remover">
+    <link rel="canonical" href="https://xiaxufeng.github.io/pdf/en/remove-annotations.html">
+    <link rel="alternate" hreflang="zh-CN" href="https://xiaxufeng.github.io/pdf/remove-annotations.html">
+    <link rel="alternate" hreflang="en" href="https://xiaxufeng.github.io/pdf/en/remove-annotations.html">
+    <link rel="alternate" hreflang="x-default" href="https://xiaxufeng.github.io/pdf/remove-annotations.html">
+    <meta property="og:title" content="Remove Annotations - Frontend PDF Toolbox">
+    <meta property="og:description" content="Free online tool to remove comments, annotations and markup from a PDF while keeping the original content, processed entirely in your browser.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://xiaxufeng.github.io/pdf/pdf-to-images.html">
-    <meta property="og:locale" content="zh_CN">
+    <meta property="og:url" content="https://xiaxufeng.github.io/pdf/en/remove-annotations.html">
+    <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="PDF转图片 - 前端PDF工具箱">
-    <meta name="twitter:description" content="免费在线PDF转图片工具，支持导出为JPG、PNG格式，自定义图片质量，批量转换页面。纯前端处理，保护隐私。">
+    <meta name="twitter:title" content="Remove Annotations - Frontend PDF Toolbox">
+    <meta name="twitter:description" content="Free online tool to remove comments, annotations and markup from a PDF while keeping the original content, processed entirely in your browser.">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "PDF转图片 - 前端PDF工具箱",
-        "alternateName": "PDF to Images - Frontend PDF Toolbox",
-        "description": "免费在线PDF转图片工具，支持导出为JPG、PNG格式，自定义图片质量，批量转换页面。纯前端处理，保护隐私。",
-        "url": "https://xiaxufeng.github.io/pdf/pdf-to-images.html",
+        "name": "Remove Annotations - Frontend PDF Toolbox",
+        "alternateName": "删除标注 - 前端PDF工具箱",
+        "description": "Free online tool to remove comments, annotations and markup from a PDF while keeping the original content, processed entirely in your browser.",
+        "url": "https://xiaxufeng.github.io/pdf/en/remove-annotations.html",
         "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Any (Web Browser)",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
@@ -43,7 +43,6 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-
     
     <style>
         * {
@@ -241,121 +240,6 @@ var _hmt = _hmt || [];
             background: #c53030;
         }
 
-        /* 格式选择选项 */
-        .format-options {
-            background: #f7fafc;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border: 1px solid #e2e8f0;
-        }
-
-        .option-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .option-group:last-child {
-            margin-bottom: 0;
-        }
-
-        .option-label {
-            display: block;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 0.5rem;
-        }
-
-        .format-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-        }
-
-        .format-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 1rem;
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .format-item:hover {
-            border-color: #667eea;
-            background: #f8f9ff;
-        }
-
-        .format-item.selected {
-            border-color: #667eea;
-            background: #f8f9ff;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
-        }
-
-        .format-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .format-name {
-            font-weight: 600;
-            color: #2d3748;
-            font-size: 0.9rem;
-        }
-
-        /* 质量设置 */
-        .quality-options {
-            background: #f7fafc;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border: 1px solid #e2e8f0;
-        }
-
-        .quality-slider {
-            width: 100%;
-            margin: 1rem 0;
-        }
-
-        .quality-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            color: #718096;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            height: 6px;
-            border-radius: 3px;
-            background: #e2e8f0;
-            outline: none;
-            -webkit-appearance: none;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #667eea;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
-        }
-
-        input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #667eea;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
-        }
-
         .btn {
             background: linear-gradient(45deg, #667eea, #764ba2);
             color: white;
@@ -397,6 +281,28 @@ var _hmt = _hmt || [];
             width: 0%;
         }
 
+        .info-box {
+            background: #e6fffa;
+            border: 1px solid #81e6d9;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            color: #234e52;
+        }
+
+        .info-box .info-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-box .info-content {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding-top: 80px;
@@ -428,75 +334,53 @@ var _hmt = _hmt || [];
 <body>
     <!-- 导航栏 -->
     <nav class="nav">
-        <a href="index.html" class="logo" data-zh="前端PDF工具箱" data-en="Frontend PDF Toolbox">前端PDF工具箱</a>
+        <a href="index.html" class="logo" data-zh="前端PDF工具箱" data-en="Frontend PDF Toolbox">Frontend PDF Toolbox</a>
         <div class="nav-right">
-            <a href="index.html" class="back-btn" data-zh="← 返回首页" data-en="← Back to Home">← 返回首页</a>
-            <a href="en/pdf-to-images.html" class="back-btn">English</a>
+            <a href="index.html" class="back-btn">← Back to Home</a>
+            <a href="../remove-annotations.html" class="back-btn">中文</a>
         </div>
     </nav>
 
     <div class="container">
         <header class="feature-header">
-            <h1 class="feature-title" data-zh="PDF转图片" data-en="PDF to Images">PDF转图片</h1>
-            <p class="feature-subtitle" data-zh="将PDF页面转换为图片格式" data-en="Convert PDF pages to image format">将PDF页面转换为图片格式</p>
+            <h1 class="feature-title" data-zh="删除标注" data-en="Remove Annotations">Remove Annotations</h1>
+            <p class="feature-subtitle" data-zh="移除PDF中的注释和标注内容" data-en="Remove comments and annotations from PDF">Remove comments and annotations from PDF</p>
         </header>
 
         <div class="feature-content">
+            <div class="info-box">
+                <div class="info-title">
+                    <span>ℹ️</span>
+                    <span data-zh="注意事项" data-en="Notice">Notice</span>
+                </div>
+                <div class="info-content" data-zh="此功能将删除PDF中的所有注释、高亮、批注等标注内容，但会保留原始文档内容。" data-en="This function will remove all comments, highlights, annotations and other markup content from the PDF, but will preserve the original document content.">This function will remove all comments, highlights, annotations and other markup content from the PDF, but will preserve the original document content.</div>
+            </div>
+
             <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-                <div class="upload-icon">🖼️</div>
-                <div class="upload-text" data-zh="点击选择文件或拖拽到此处" data-en="Click to select files or drag and drop here">点击选择文件或拖拽到此处</div>
-                <div class="upload-hint" data-zh="支持PDF格式文件" data-en="Support PDF format files">支持PDF格式文件</div>
+                <div class="upload-icon">📝</div>
+                <div class="upload-text" data-zh="点击选择文件或拖拽到此处" data-en="Click to select files or drag and drop here">Click to select files or drag and drop here</div>
+                <div class="upload-hint" data-zh="支持带有标注的PDF文件" data-en="Support PDF files with annotations">Support PDF files with annotations</div>
             </div>
 
             <input type="file" id="fileInput" accept=".pdf">
 
             <div class="file-list" id="fileList"></div>
 
-            <!-- 格式选择选项 -->
-            <div class="format-options" id="formatOptions" style="display: none;">
-                <div class="option-group">
-                    <label class="option-label" data-zh="选择输出格式" data-en="Select Output Format">选择输出格式</label>
-                    <div class="format-grid" id="formatGrid">
-                        <div class="format-item selected" data-format="png" onclick="selectFormat('png')">
-                            <div class="format-icon">🖼️</div>
-                            <div class="format-name">PNG</div>
-                        </div>
-                        <div class="format-item" data-format="jpeg" onclick="selectFormat('jpeg')">
-                            <div class="format-icon">📷</div>
-                            <div class="format-name">JPEG</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 质量设置选项 -->
-            <div class="quality-options" id="qualityOptions" style="display: none;">
-                <div class="option-group">
-                    <label class="option-label" data-zh="图片质量" data-en="Image Quality">图片质量</label>
-                    <input type="range" class="quality-slider" id="qualitySlider" min="0.5" max="3" step="0.1" value="2">
-                    <div class="quality-labels">
-                        <span data-zh="低质量" data-en="Low Quality">低质量</span>
-                        <span id="qualityValue">2.0x</span>
-                        <span data-zh="高质量" data-en="High Quality">高质量</span>
-                    </div>
-                </div>
-            </div>
-
             <div class="progress-bar" id="progressBar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
 
-            <button class="btn" id="processBtn" onclick="convertToImages()" data-zh="开始转换" data-en="Start Converting" disabled>开始转换</button>
+            <button class="btn" id="processBtn" onclick="removeAnnotations()" data-zh="删除标注" data-en="Remove Annotations" disabled>Remove Annotations</button>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
     
     <script>
         // 语言管理
-        let currentLanguage = 'zh';
+        let currentLanguage = 'en';
         let pdfFile = null;
-        let selectedFormat = 'png';
 
         // 检测系统语言并设置初始语言
         function initLanguage() {
@@ -524,8 +408,6 @@ var _hmt = _hmt || [];
             if (file && file.type === 'application/pdf') {
                 pdfFile = file;
                 updateFileList();
-                document.getElementById('formatOptions').style.display = 'block';
-                document.getElementById('qualityOptions').style.display = 'block';
                 document.getElementById('processBtn').disabled = false;
             }
         }
@@ -539,7 +421,7 @@ var _hmt = _hmt || [];
                 fileItem.className = 'file-item';
                 fileItem.innerHTML = `
                     <div class="file-info">
-                        <div class="file-icon">PDF</div>
+                        <div class="file-icon">📝</div>
                         <div class="file-details">
                             <div class="file-name">${pdfFile.name}</div>
                             <div class="file-size">${formatFileSize(pdfFile.size)}</div>
@@ -554,17 +436,7 @@ var _hmt = _hmt || [];
         function removeFile() {
             pdfFile = null;
             document.getElementById('fileList').innerHTML = '';
-            document.getElementById('formatOptions').style.display = 'none';
-            document.getElementById('qualityOptions').style.display = 'none';
             document.getElementById('processBtn').disabled = true;
-        }
-
-        function selectFormat(format) {
-            selectedFormat = format;
-            document.querySelectorAll('.format-item').forEach(item => {
-                item.classList.remove('selected');
-            });
-            document.querySelector(`[data-format="${format}"]`).classList.add('selected');
         }
 
         function formatFileSize(bytes) {
@@ -575,67 +447,67 @@ var _hmt = _hmt || [];
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
 
-        // 质量滑块更新
-        document.getElementById('qualitySlider').addEventListener('input', function() {
-            document.getElementById('qualityValue').textContent = parseFloat(this.value).toFixed(1) + 'x';
-        });
-
-        async function convertToImages() {
+        async function removeAnnotations() {
             if (!pdfFile) return;
 
             const processBtn = document.getElementById('processBtn');
             const progressBar = document.getElementById('progressBar');
             const progressFill = document.getElementById('progressFill');
-            const quality = parseFloat(document.getElementById('qualitySlider').value);
 
             processBtn.disabled = true;
             processBtn.textContent = currentLanguage === 'zh' ? '处理中...' : 'Processing...';
             progressBar.style.display = 'block';
+            progressFill.style.width = '25%';
 
             try {
                 const arrayBuffer = await pdfFile.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
-                const totalPages = pdf.numPages;
+                const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
 
-                progressFill.style.width = '10%';
+                progressFill.style.width = '50%';
 
-                for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-                    const page = await pdf.getPage(pageNum);
-                    const viewport = page.getViewport({ scale: quality });
-
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-
-                    await page.render({
-                        canvasContext: context,
-                        viewport: viewport
-                    }).promise;
-
-                    // 转换为指定格式
-                    const mimeType = selectedFormat === 'png' ? 'image/png' : 'image/jpeg';
-                    const imageQuality = selectedFormat === 'jpeg' ? 0.9 : undefined;
+                // 遍历所有页面删除标注
+                const pages = pdfDoc.getPages();
+                for (let i = 0; i < pages.length; i++) {
+                    const page = pages[i];
                     
-                    canvas.toBlob((blob) => {
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = `${pdfFile.name.replace('.pdf', '')}_page_${pageNum}.${selectedFormat}`;
-                        a.click();
-                        URL.revokeObjectURL(url);
-                    }, mimeType, imageQuality);
+                    // 获取页面的注释数组
+                    const annotations = page.node.Annots;
+                    if (annotations) {
+                        // 清空注释数组
+                        page.node.delete('Annots');
+                    }
 
-                    const progress = 10 + (pageNum / totalPages) * 90;
+                    const progress = 50 + (i / pages.length) * 25;
                     progressFill.style.width = progress + '%';
                 }
 
+                progressFill.style.width = '90%';
+
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = pdfFile.name.replace('.pdf', '_no_annotations.pdf');
+                a.click();
+
+                URL.revokeObjectURL(url);
+
+                progressFill.style.width = '100%';
+
+                // 更新文件图标
+                const fileIcon = document.querySelector('.file-icon');
+                if (fileIcon) {
+                    fileIcon.textContent = '✨';
+                }
+
             } catch (error) {
-                alert(currentLanguage === 'zh' ? '转换失败，请检查文件是否有效' : 'Conversion failed, please check if file is valid');
+                alert(currentLanguage === 'zh' ? '删除标注失败，请检查文件是否有效' : 'Failed to remove annotations, please check if file is valid');
             }
 
             processBtn.disabled = false;
-            processBtn.textContent = currentLanguage === 'zh' ? '开始转换' : 'Start Converting';
+            processBtn.textContent = currentLanguage === 'zh' ? '删除标注' : 'Remove Annotations';
             progressBar.style.display = 'none';
             progressFill.style.width = '0%';
         }

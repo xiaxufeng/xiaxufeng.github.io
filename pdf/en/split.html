@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF转图片 - 前端PDF工具箱</title>
-    <meta name="description" content="免费在线PDF转图片工具，支持导出为JPG、PNG格式，自定义图片质量，批量转换页面。纯前端处理，保护隐私。">
-    <meta name="keywords" content="PDF转图片,PDF转JPG,PDF转PNG,在线PDF转图片工具">
-    <link rel="canonical" href="https://xiaxufeng.github.io/pdf/pdf-to-images.html">
-    <link rel="alternate" hreflang="zh-CN" href="https://xiaxufeng.github.io/pdf/pdf-to-images.html">
-    <link rel="alternate" hreflang="en" href="https://xiaxufeng.github.io/pdf/en/pdf-to-images.html">
-    <link rel="alternate" hreflang="x-default" href="https://xiaxufeng.github.io/pdf/pdf-to-images.html">
-    <meta property="og:title" content="PDF转图片 - 前端PDF工具箱">
-    <meta property="og:description" content="免费在线PDF转图片工具，支持导出为JPG、PNG格式，自定义图片质量，批量转换页面。纯前端处理，保护隐私。">
+    <title>Split PDF - Frontend PDF Toolbox</title>
+    <meta name="description" content="Free online tool to split a PDF into individual pages or extract specific page ranges, processed entirely in your browser.">
+    <meta name="keywords" content="split PDF,PDF splitter,extract PDF pages,online PDF split,free PDF split tool">
+    <link rel="canonical" href="https://xiaxufeng.github.io/pdf/en/split.html">
+    <link rel="alternate" hreflang="zh-CN" href="https://xiaxufeng.github.io/pdf/split.html">
+    <link rel="alternate" hreflang="en" href="https://xiaxufeng.github.io/pdf/en/split.html">
+    <link rel="alternate" hreflang="x-default" href="https://xiaxufeng.github.io/pdf/split.html">
+    <meta property="og:title" content="Split PDF - Frontend PDF Toolbox">
+    <meta property="og:description" content="Free online tool to split a PDF into individual pages or extract specific page ranges, processed entirely in your browser.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://xiaxufeng.github.io/pdf/pdf-to-images.html">
-    <meta property="og:locale" content="zh_CN">
+    <meta property="og:url" content="https://xiaxufeng.github.io/pdf/en/split.html">
+    <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="PDF转图片 - 前端PDF工具箱">
-    <meta name="twitter:description" content="免费在线PDF转图片工具，支持导出为JPG、PNG格式，自定义图片质量，批量转换页面。纯前端处理，保护隐私。">
+    <meta name="twitter:title" content="Split PDF - Frontend PDF Toolbox">
+    <meta name="twitter:description" content="Free online tool to split a PDF into individual pages or extract specific page ranges, processed entirely in your browser.">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "PDF转图片 - 前端PDF工具箱",
-        "alternateName": "PDF to Images - Frontend PDF Toolbox",
-        "description": "免费在线PDF转图片工具，支持导出为JPG、PNG格式，自定义图片质量，批量转换页面。纯前端处理，保护隐私。",
-        "url": "https://xiaxufeng.github.io/pdf/pdf-to-images.html",
+        "name": "Split PDF - Frontend PDF Toolbox",
+        "alternateName": "拆分PDF - 前端PDF工具箱",
+        "description": "Free online tool to split a PDF into individual pages or extract specific page ranges, processed entirely in your browser.",
+        "url": "https://xiaxufeng.github.io/pdf/en/split.html",
         "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Any (Web Browser)",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
@@ -241,8 +241,8 @@ var _hmt = _hmt || [];
             background: #c53030;
         }
 
-        /* 格式选择选项 */
-        .format-options {
+        /* 拆分选项 */
+        .split-options {
             background: #f7fafc;
             border-radius: 12px;
             padding: 1.5rem;
@@ -265,95 +265,48 @@ var _hmt = _hmt || [];
             margin-bottom: 0.5rem;
         }
 
-        .format-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-        }
-
-        .format-item {
+        .radio-group {
             display: flex;
             flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .radio-item {
+            display: flex;
             align-items: center;
-            padding: 1rem;
+            gap: 0.5rem;
+        }
+
+        .radio-item input[type="radio"] {
+            display: block;
+        }
+
+        .page-input {
             background: white;
             border: 2px solid #e2e8f0;
             border-radius: 8px;
-            cursor: pointer;
+            padding: 0.75rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
-        }
-
-        .format-item:hover {
-            border-color: #667eea;
-            background: #f8f9ff;
-        }
-
-        .format-item.selected {
-            border-color: #667eea;
-            background: #f8f9ff;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
-        }
-
-        .format-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .format-name {
-            font-weight: 600;
-            color: #2d3748;
-            font-size: 0.9rem;
-        }
-
-        /* 质量设置 */
-        .quality-options {
-            background: #f7fafc;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border: 1px solid #e2e8f0;
-        }
-
-        .quality-slider {
             width: 100%;
-            margin: 1rem 0;
+            margin-top: 0.5rem;
         }
 
-        .quality-labels {
-            display: flex;
-            justify-content: space-between;
+        .page-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .page-input:disabled {
+            background: #f7fafc;
+            color: #a0aec0;
+        }
+
+        .input-hint {
             font-size: 0.9rem;
             color: #718096;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            height: 6px;
-            border-radius: 3px;
-            background: #e2e8f0;
-            outline: none;
-            -webkit-appearance: none;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #667eea;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
-        }
-
-        input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #667eea;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+            margin-top: 0.5rem;
         }
 
         .btn {
@@ -428,57 +381,50 @@ var _hmt = _hmt || [];
 <body>
     <!-- 导航栏 -->
     <nav class="nav">
-        <a href="index.html" class="logo" data-zh="前端PDF工具箱" data-en="Frontend PDF Toolbox">前端PDF工具箱</a>
+        <a href="index.html" class="logo" data-zh="前端PDF工具箱" data-en="Frontend PDF Toolbox">Frontend PDF Toolbox</a>
         <div class="nav-right">
-            <a href="index.html" class="back-btn" data-zh="← 返回首页" data-en="← Back to Home">← 返回首页</a>
-            <a href="en/pdf-to-images.html" class="back-btn">English</a>
+            <a href="index.html" class="back-btn">← Back to Home</a>
+            <a href="../split.html" class="back-btn">中文</a>
         </div>
     </nav>
 
     <div class="container">
         <header class="feature-header">
-            <h1 class="feature-title" data-zh="PDF转图片" data-en="PDF to Images">PDF转图片</h1>
-            <p class="feature-subtitle" data-zh="将PDF页面转换为图片格式" data-en="Convert PDF pages to image format">将PDF页面转换为图片格式</p>
+            <h1 class="feature-title" data-zh="拆分PDF" data-en="Split PDF">Split PDF</h1>
+            <p class="feature-subtitle" data-zh="将PDF文件按页面拆分或提取指定页面" data-en="Split PDF files by pages or extract specific pages">Split PDF files by pages or extract specific pages</p>
         </header>
 
         <div class="feature-content">
             <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-                <div class="upload-icon">🖼️</div>
-                <div class="upload-text" data-zh="点击选择文件或拖拽到此处" data-en="Click to select files or drag and drop here">点击选择文件或拖拽到此处</div>
-                <div class="upload-hint" data-zh="支持PDF格式文件" data-en="Support PDF format files">支持PDF格式文件</div>
+                <div class="upload-icon">📎</div>
+                <div class="upload-text" data-zh="点击选择文件或拖拽到此处" data-en="Click to select files or drag and drop here">Click to select files or drag and drop here</div>
+                <div class="upload-hint" data-zh="支持PDF格式文件" data-en="Support PDF format files">Support PDF format files</div>
             </div>
 
             <input type="file" id="fileInput" accept=".pdf">
 
             <div class="file-list" id="fileList"></div>
 
-            <!-- 格式选择选项 -->
-            <div class="format-options" id="formatOptions" style="display: none;">
+            <!-- 拆分选项 -->
+            <div class="split-options" id="splitOptions" style="display: none;">
                 <div class="option-group">
-                    <label class="option-label" data-zh="选择输出格式" data-en="Select Output Format">选择输出格式</label>
-                    <div class="format-grid" id="formatGrid">
-                        <div class="format-item selected" data-format="png" onclick="selectFormat('png')">
-                            <div class="format-icon">🖼️</div>
-                            <div class="format-name">PNG</div>
+                    <label class="option-label" data-zh="拆分方式" data-en="Split Mode">Split Mode</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="splitAll" name="splitMode" value="all" checked onchange="togglePageInput()">
+                            <label for="splitAll" data-zh="拆分为单独页面" data-en="Split into individual pages">Split into individual pages</label>
                         </div>
-                        <div class="format-item" data-format="jpeg" onclick="selectFormat('jpeg')">
-                            <div class="format-icon">📷</div>
-                            <div class="format-name">JPEG</div>
+                        <div class="radio-item">
+                            <input type="radio" id="splitPages" name="splitMode" value="pages" onchange="togglePageInput()">
+                            <label for="splitPages" data-zh="提取指定页面" data-en="Extract specific pages">Extract specific pages</label>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 质量设置选项 -->
-            <div class="quality-options" id="qualityOptions" style="display: none;">
                 <div class="option-group">
-                    <label class="option-label" data-zh="图片质量" data-en="Image Quality">图片质量</label>
-                    <input type="range" class="quality-slider" id="qualitySlider" min="0.5" max="3" step="0.1" value="2">
-                    <div class="quality-labels">
-                        <span data-zh="低质量" data-en="Low Quality">低质量</span>
-                        <span id="qualityValue">2.0x</span>
-                        <span data-zh="高质量" data-en="High Quality">高质量</span>
-                    </div>
+                    <label class="option-label" data-zh="页面设置" data-en="Page Settings">Page Settings</label>
+                    <input type="text" class="page-input" id="pageInput" data-zh-placeholder="例如: 1-5, 8, 10-12" data-en-placeholder="e.g: 1-5, 8, 10-12" placeholder="e.g: 1-5, 8, 10-12" disabled>
+                    <div class="input-hint" id="pageHint" data-zh="选择&quot;提取指定页面&quot;后输入页面范围或页面号" data-en="Select 'Extract specific pages' then enter page ranges or numbers">Select 'Extract specific pages' then enter page ranges or numbers</div>
                 </div>
             </div>
 
@@ -486,17 +432,18 @@ var _hmt = _hmt || [];
                 <div class="progress-fill" id="progressFill"></div>
             </div>
 
-            <button class="btn" id="processBtn" onclick="convertToImages()" data-zh="开始转换" data-en="Start Converting" disabled>开始转换</button>
+            <button class="btn" id="processBtn" onclick="splitFile()" data-zh="开始拆分" data-en="Start Splitting" disabled>Start Splitting</button>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
     
     <script>
         // 语言管理
-        let currentLanguage = 'zh';
+        let currentLanguage = 'en';
         let pdfFile = null;
-        let selectedFormat = 'png';
+        let pdfDoc = null;
 
         // 检测系统语言并设置初始语言
         function initLanguage() {
@@ -509,7 +456,20 @@ var _hmt = _hmt || [];
             elements.forEach(element => {
                 const text = element.getAttribute(`data-${currentLanguage}`);
                 if (text) {
-                    element.textContent = text;
+                    if (element.tagName === 'INPUT' && (element.type === 'text' || element.type === 'password')) {
+                        element.placeholder = text;
+                    } else {
+                        element.textContent = text;
+                    }
+                }
+            });
+
+            // 更新placeholder
+            const placeholderElements = document.querySelectorAll(`[data-${currentLanguage}-placeholder]`);
+            placeholderElements.forEach(element => {
+                const placeholder = element.getAttribute(`data-${currentLanguage}-placeholder`);
+                if (placeholder) {
+                    element.placeholder = placeholder;
                 }
             });
 
@@ -519,14 +479,21 @@ var _hmt = _hmt || [];
         // 文件处理
         document.getElementById('fileInput').addEventListener('change', handleFile);
 
-        function handleFile(event) {
+        async function handleFile(event) {
             const file = event.target.files[0];
             if (file && file.type === 'application/pdf') {
                 pdfFile = file;
-                updateFileList();
-                document.getElementById('formatOptions').style.display = 'block';
-                document.getElementById('qualityOptions').style.display = 'block';
-                document.getElementById('processBtn').disabled = false;
+                
+                try {
+                    const arrayBuffer = await file.arrayBuffer();
+                    pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+                    
+                    updateFileList();
+                    document.getElementById('splitOptions').style.display = 'block';
+                    document.getElementById('processBtn').disabled = false;
+                } catch (error) {
+                    alert(currentLanguage === 'zh' ? '无法读取PDF文件' : 'Cannot read PDF file');
+                }
             }
         }
 
@@ -542,7 +509,7 @@ var _hmt = _hmt || [];
                         <div class="file-icon">PDF</div>
                         <div class="file-details">
                             <div class="file-name">${pdfFile.name}</div>
-                            <div class="file-size">${formatFileSize(pdfFile.size)}</div>
+                            <div class="file-size">${formatFileSize(pdfFile.size)} • ${pdfDoc.getPageCount()} ${currentLanguage === 'zh' ? '页' : 'pages'}</div>
                         </div>
                     </div>
                     <button class="remove-btn" onclick="removeFile()">${currentLanguage === 'zh' ? '删除' : 'Remove'}</button>
@@ -553,18 +520,17 @@ var _hmt = _hmt || [];
 
         function removeFile() {
             pdfFile = null;
+            pdfDoc = null;
             document.getElementById('fileList').innerHTML = '';
-            document.getElementById('formatOptions').style.display = 'none';
-            document.getElementById('qualityOptions').style.display = 'none';
+            document.getElementById('splitOptions').style.display = 'none';
             document.getElementById('processBtn').disabled = true;
         }
 
-        function selectFormat(format) {
-            selectedFormat = format;
-            document.querySelectorAll('.format-item').forEach(item => {
-                item.classList.remove('selected');
-            });
-            document.querySelector(`[data-format="${format}"]`).classList.add('selected');
+        function togglePageInput() {
+            const splitMode = document.querySelector('input[name="splitMode"]:checked').value;
+            const pageInput = document.getElementById('pageInput');
+            
+            pageInput.disabled = splitMode === 'all';
         }
 
         function formatFileSize(bytes) {
@@ -575,67 +541,101 @@ var _hmt = _hmt || [];
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
 
-        // 质量滑块更新
-        document.getElementById('qualitySlider').addEventListener('input', function() {
-            document.getElementById('qualityValue').textContent = parseFloat(this.value).toFixed(1) + 'x';
-        });
+        function parsePageRanges(input, totalPages) {
+            const ranges = input.split(',').map(s => s.trim());
+            const pages = new Set();
 
-        async function convertToImages() {
-            if (!pdfFile) return;
+            for (const range of ranges) {
+                if (range.includes('-')) {
+                    const [start, end] = range.split('-').map(n => parseInt(n.trim()));
+                    if (start >= 1 && end <= totalPages && start <= end) {
+                        for (let i = start; i <= end; i++) {
+                            pages.add(i - 1); // PDF-lib uses 0-based indexing
+                        }
+                    }
+                } else {
+                    const page = parseInt(range);
+                    if (page >= 1 && page <= totalPages) {
+                        pages.add(page - 1);
+                    }
+                }
+            }
+
+            return Array.from(pages).sort((a, b) => a - b);
+        }
+
+        async function splitFile() {
+            if (!pdfDoc) return;
 
             const processBtn = document.getElementById('processBtn');
             const progressBar = document.getElementById('progressBar');
             const progressFill = document.getElementById('progressFill');
-            const quality = parseFloat(document.getElementById('qualitySlider').value);
 
             processBtn.disabled = true;
             processBtn.textContent = currentLanguage === 'zh' ? '处理中...' : 'Processing...';
             progressBar.style.display = 'block';
 
             try {
-                const arrayBuffer = await pdfFile.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
-                const totalPages = pdf.numPages;
+                const splitMode = document.querySelector('input[name="splitMode"]:checked').value;
+                const totalPages = pdfDoc.getPageCount();
 
-                progressFill.style.width = '10%';
+                if (splitMode === 'all') {
+                    // 拆分为单独页面
+                    for (let i = 0; i < totalPages; i++) {
+                        const progress = ((i + 1) / totalPages) * 100;
+                        progressFill.style.width = progress + '%';
 
-                for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-                    const page = await pdf.getPage(pageNum);
-                    const viewport = page.getViewport({ scale: quality });
+                        const newPdf = await PDFLib.PDFDocument.create();
+                        const [copiedPage] = await newPdf.copyPages(pdfDoc, [i]);
+                        newPdf.addPage(copiedPage);
 
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-
-                    await page.render({
-                        canvasContext: context,
-                        viewport: viewport
-                    }).promise;
-
-                    // 转换为指定格式
-                    const mimeType = selectedFormat === 'png' ? 'image/png' : 'image/jpeg';
-                    const imageQuality = selectedFormat === 'jpeg' ? 0.9 : undefined;
-                    
-                    canvas.toBlob((blob) => {
+                        const pdfBytes = await newPdf.save();
+                        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
                         const url = URL.createObjectURL(blob);
+
                         const a = document.createElement('a');
                         a.href = url;
-                        a.download = `${pdfFile.name.replace('.pdf', '')}_page_${pageNum}.${selectedFormat}`;
+                        a.download = `${pdfFile.name.replace('.pdf', '')}_page_${i + 1}.pdf`;
                         a.click();
-                        URL.revokeObjectURL(url);
-                    }, mimeType, imageQuality);
 
-                    const progress = 10 + (pageNum / totalPages) * 90;
-                    progressFill.style.width = progress + '%';
+                        URL.revokeObjectURL(url);
+                    }
+                } else {
+                    // 提取指定页面
+                    const pageInput = document.getElementById('pageInput').value;
+                    if (!pageInput.trim()) {
+                        alert(currentLanguage === 'zh' ? '请输入页面范围' : 'Please enter page ranges');
+                        return;
+                    }
+
+                    const pageIndices = parsePageRanges(pageInput, totalPages);
+                    if (pageIndices.length === 0) {
+                        alert(currentLanguage === 'zh' ? '无效的页面范围' : 'Invalid page ranges');
+                        return;
+                    }
+
+                    const newPdf = await PDFLib.PDFDocument.create();
+                    const copiedPages = await newPdf.copyPages(pdfDoc, pageIndices);
+                    copiedPages.forEach((page) => newPdf.addPage(page));
+
+                    const pdfBytes = await newPdf.save();
+                    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                    const url = URL.createObjectURL(blob);
+
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${pdfFile.name.replace('.pdf', '')}_extracted_pages.pdf`;
+                    a.click();
+
+                    URL.revokeObjectURL(url);
                 }
 
             } catch (error) {
-                alert(currentLanguage === 'zh' ? '转换失败，请检查文件是否有效' : 'Conversion failed, please check if file is valid');
+                alert(currentLanguage === 'zh' ? '拆分失败，请检查文件是否有效' : 'Split failed, please check if file is valid');
             }
 
             processBtn.disabled = false;
-            processBtn.textContent = currentLanguage === 'zh' ? '开始转换' : 'Start Converting';
+            processBtn.textContent = currentLanguage === 'zh' ? '开始拆分' : 'Start Splitting';
             progressBar.style.display = 'none';
             progressFill.style.width = '0%';
         }

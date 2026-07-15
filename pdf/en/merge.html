@@ -1,50 +1,50 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>解除密码 - 前端PDF工具箱</title>
-    <meta name="description" content="免费在线PDF解密工具，快速移除PDF密码保护限制，支持多种加密类型。纯前端处理，更安全可靠。">
-    <meta name="keywords" content="PDF解密,PDF解除密码,PDF去密码,在线PDF解密,免费PDF解密工具">
-    <link rel="canonical" href="https://xiaxufeng.github.io/pdf/unlock.html">
-    <link rel="alternate" hreflang="zh-CN" href="https://xiaxufeng.github.io/pdf/unlock.html">
-    <link rel="alternate" hreflang="en" href="https://xiaxufeng.github.io/pdf/en/unlock.html">
-    <link rel="alternate" hreflang="x-default" href="https://xiaxufeng.github.io/pdf/unlock.html">
-    <meta property="og:title" content="解除密码 - 前端PDF工具箱">
-    <meta property="og:description" content="免费在线PDF解密工具，快速移除PDF密码保护限制，支持多种加密类型。纯前端处理，更安全可靠。">
+    <title>Merge PDF - Frontend PDF Toolbox</title>
+    <meta name="description" content="Free online tool to merge multiple PDF files into one document with drag-and-drop ordering. Processed entirely in your browser for privacy.">
+    <meta name="keywords" content="merge PDF,combine PDF,PDF joiner,online PDF merge,free PDF merge tool">
+    <link rel="canonical" href="https://xiaxufeng.github.io/pdf/en/merge.html">
+    <link rel="alternate" hreflang="zh-CN" href="https://xiaxufeng.github.io/pdf/merge.html">
+    <link rel="alternate" hreflang="en" href="https://xiaxufeng.github.io/pdf/en/merge.html">
+    <link rel="alternate" hreflang="x-default" href="https://xiaxufeng.github.io/pdf/merge.html">
+    <meta property="og:title" content="Merge PDF - Frontend PDF Toolbox">
+    <meta property="og:description" content="Free online tool to merge multiple PDF files into one document with drag-and-drop ordering. Processed entirely in your browser for privacy.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://xiaxufeng.github.io/pdf/unlock.html">
-    <meta property="og:locale" content="zh_CN">
+    <meta property="og:url" content="https://xiaxufeng.github.io/pdf/en/merge.html">
+    <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="解除密码 - 前端PDF工具箱">
-    <meta name="twitter:description" content="免费在线PDF解密工具，快速移除PDF密码保护限制，支持多种加密类型。纯前端处理，更安全可靠。">
+    <meta name="twitter:title" content="Merge PDF - Frontend PDF Toolbox">
+    <meta name="twitter:description" content="Free online tool to merge multiple PDF files into one document with drag-and-drop ordering. Processed entirely in your browser for privacy.">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "解除密码 - 前端PDF工具箱",
-        "alternateName": "Remove Password - Frontend PDF Toolbox",
-        "description": "免费在线PDF解密工具，快速移除PDF密码保护限制，支持多种加密类型。纯前端处理，更安全可靠。",
-        "url": "https://xiaxufeng.github.io/pdf/unlock.html",
+        "name": "Merge PDF - Frontend PDF Toolbox",
+        "alternateName": "合并PDF - 前端PDF工具箱",
+        "description": "Free online tool to merge multiple PDF files into one document with drag-and-drop ordering. Processed entirely in your browser for privacy.",
+        "url": "https://xiaxufeng.github.io/pdf/en/merge.html",
         "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Any (Web Browser)",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
     }
     </script>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
 
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?fb78ad0a782ee1dc532158831ac87f92";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?fb78ad0a782ee1dc532158831ac87f92";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 
-    
     <style>
         * {
             margin: 0;
@@ -190,6 +190,28 @@ var _hmt = _hmt || [];
             margin-bottom: 0.5rem;
             border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
+            cursor: move;
+            user-select: none;
+        }
+
+        .file-item.dragging {
+            opacity: 0.5;
+            transform: rotate(2deg) scale(1.05);
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .file-item.drag-over {
+            border-color: #667eea;
+            background: #edf2f7;
+            transform: translateY(-2px);
+            border-style: solid;
+            border-width: 2px;
+        }
+
+        .file-item:hover:not(.dragging) {
+            background: #edf2f7;
+            transform: translateY(-1px);
         }
 
         .file-info {
@@ -197,6 +219,26 @@ var _hmt = _hmt || [];
             align-items: center;
             gap: 1rem;
             flex: 1;
+            pointer-events: none;
+        }
+
+        .drag-handle {
+            cursor: grab;
+            color: #a0aec0;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            pointer-events: auto;
+        }
+
+        .drag-handle:hover {
+            background: #e2e8f0;
+            color: #667eea;
+        }
+
+        .drag-handle:active {
+            cursor: grabbing;
         }
 
         .file-icon {
@@ -235,77 +277,11 @@ var _hmt = _hmt || [];
             cursor: pointer;
             font-size: 0.9rem;
             transition: all 0.3s ease;
+            pointer-events: auto;
         }
 
         .remove-btn:hover {
             background: #c53030;
-        }
-
-        /* 密码输入选项 */
-        .password-options {
-            background: #f7fafc;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border: 1px solid #e2e8f0;
-        }
-
-        .option-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .option-group:last-child {
-            margin-bottom: 0;
-        }
-
-        .option-label {
-            display: block;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 0.5rem;
-        }
-
-        .password-input {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 0.75rem;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 0.5rem;
-        }
-
-        .password-input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .password-toggle {
-            margin-top: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .password-toggle input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #667eea;
-            cursor: pointer;
-        }
-
-        .password-toggle label {
-            font-size: 0.9rem;
-            color: #4a5568;
-            cursor: pointer;
-        }
-
-        .input-hint {
-            font-size: 0.9rem;
-            color: #718096;
-            margin-top: 0.5rem;
         }
 
         .btn {
@@ -349,6 +325,20 @@ var _hmt = _hmt || [];
             width: 0%;
         }
 
+        /* 拖拽指示器 */
+        .drop-indicator {
+            height: 3px;
+            background: #667eea;
+            border-radius: 2px;
+            margin: 2px 0;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .drop-indicator.show {
+            opacity: 1;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding-top: 80px;
@@ -380,59 +370,47 @@ var _hmt = _hmt || [];
 <body>
     <!-- 导航栏 -->
     <nav class="nav">
-        <a href="index.html" class="logo" data-zh="前端PDF工具箱" data-en="Frontend PDF Toolbox">前端PDF工具箱</a>
+        <a href="index.html" class="logo" data-zh="前端PDF工具箱" data-en="Frontend PDF Toolbox">Frontend PDF Toolbox</a>
         <div class="nav-right">
-            <a href="index.html" class="back-btn" data-zh="← 返回首页" data-en="← Back to Home">← 返回首页</a>
-            <a href="en/unlock.html" class="back-btn">English</a>
+            <a href="index.html" class="back-btn">← Back to Home</a>
+            <a href="../merge.html" class="back-btn">中文</a>
         </div>
     </nav>
 
     <div class="container">
         <header class="feature-header">
-            <h1 class="feature-title" data-zh="解除密码" data-en="Remove Password">解除密码</h1>
-            <p class="feature-subtitle" data-zh="移除PDF文件的密码保护限制" data-en="Remove password protection from PDF files">移除PDF文件的密码保护限制</p>
+            <h1 class="feature-title" data-zh="合并PDF" data-en="Merge PDF">Merge PDF</h1>
+            <p class="feature-subtitle" data-zh="将多个PDF文件合并为一个完整的文档" data-en="Combine multiple PDF files into a single document">Combine multiple PDF files into a single document</p>
         </header>
 
         <div class="feature-content">
             <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-                <div class="upload-icon">🔓</div>
-                <div class="upload-text" data-zh="点击选择文件或拖拽到此处" data-en="Click to select files or drag and drop here">点击选择文件或拖拽到此处</div>
-                <div class="upload-hint" data-zh="支持受密码保护的PDF文件" data-en="Support password-protected PDF files">支持受密码保护的PDF文件</div>
+                <div class="upload-icon">📎</div>
+                <div class="upload-text" data-zh="点击选择文件或拖拽到此处" data-en="Click to select files or drag and drop here">Click to select files or drag and drop here</div>
+                <div class="upload-hint" data-zh="支持多个PDF格式文件，可拖拽调整合并顺序" data-en="Support multiple PDF format files, drag to adjust merge order">Support multiple PDF format files, drag to adjust merge order</div>
             </div>
 
-            <input type="file" id="fileInput" accept=".pdf">
+            <input type="file" id="fileInput" accept=".pdf" multiple>
 
             <div class="file-list" id="fileList"></div>
-
-            <!-- 密码选项 -->
-            <div class="password-options" id="passwordOptions" style="display: none;">
-                <div class="option-group">
-                    <label class="option-label" data-zh="PDF密码" data-en="PDF Password">PDF密码</label>
-                    <input type="password" class="password-input" id="pdfPassword" data-zh-placeholder="请输入PDF密码" data-en-placeholder="Please enter PDF password" placeholder="请输入PDF密码">
-                    <div class="input-hint" data-zh="需要提供正确的密码才能解除PDF保护" data-en="Correct password required to unlock PDF protection">需要提供正确的密码才能解除PDF保护</div>
-
-                    <div class="password-toggle">
-                        <input type="checkbox" id="showPassword" onchange="togglePasswordVisibility()">
-                        <label for="showPassword" data-zh="显示密码" data-en="Show password">显示密码</label>
-                    </div>
-                </div>
-            </div>
 
             <div class="progress-bar" id="progressBar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
 
-            <button class="btn" id="processBtn" onclick="unlockFile()" data-zh="解除密码" data-en="Remove Password" disabled>解除密码</button>
+            <button class="btn" id="processBtn" onclick="mergeFiles()" data-zh="开始合并" data-en="Start Merging">Start Merging</button>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
-    
+
     <script>
         // 语言管理
-        let currentLanguage = 'zh';
-        let pdfFile = null;
+        let currentLanguage = 'en';
+        let fileData = [];
+        let draggedItem = null;
+        let draggedIndex = -1;
 
         // 检测系统语言并设置初始语言
         function initLanguage() {
@@ -445,20 +423,7 @@ var _hmt = _hmt || [];
             elements.forEach(element => {
                 const text = element.getAttribute(`data-${currentLanguage}`);
                 if (text) {
-                    if (element.tagName === 'INPUT' && (element.type === 'text' || element.type === 'password')) {
-                        element.placeholder = text;
-                    } else {
-                        element.textContent = text;
-                    }
-                }
-            });
-
-            // 更新placeholder
-            const placeholderElements = document.querySelectorAll(`[data-${currentLanguage}-placeholder]`);
-            placeholderElements.forEach(element => {
-                const placeholder = element.getAttribute(`data-${currentLanguage}-placeholder`);
-                if (placeholder) {
-                    element.placeholder = placeholder;
+                    element.textContent = text;
                 }
             });
 
@@ -466,51 +431,127 @@ var _hmt = _hmt || [];
         }
 
         // 文件处理
-        document.getElementById('fileInput').addEventListener('change', handleFile);
+        document.getElementById('fileInput').addEventListener('change', handleFiles);
 
-        function handleFile(event) {
-            const file = event.target.files[0];
-            if (file && file.type === 'application/pdf') {
-                pdfFile = file;
-                updateFileList();
-                document.getElementById('passwordOptions').style.display = 'block';
-                document.getElementById('processBtn').disabled = false;
-            }
+        function handleFiles(event) {
+            const files = Array.from(event.target.files);
+            files.forEach(file => {
+                if (file.type === 'application/pdf') {
+                    fileData.push({
+                        file: file,
+                        name: file.name,
+                        size: file.size
+                    });
+                }
+            });
+            updateFileList();
         }
 
         function updateFileList() {
             const fileList = document.getElementById('fileList');
             fileList.innerHTML = '';
 
-            if (pdfFile) {
+            fileData.forEach((item, index) => {
                 const fileItem = document.createElement('div');
                 fileItem.className = 'file-item';
+                fileItem.draggable = true;
+                fileItem.dataset.index = index;
                 fileItem.innerHTML = `
                     <div class="file-info">
-                        <div class="file-icon">🔒</div>
+                        <div class="drag-handle">⋮⋮</div>
+                        <div class="file-icon">PDF</div>
                         <div class="file-details">
-                            <div class="file-name">${pdfFile.name}</div>
-                            <div class="file-size">${formatFileSize(pdfFile.size)}</div>
+                            <div class="file-name">${item.name}</div>
+                            <div class="file-size">${formatFileSize(item.size)}</div>
                         </div>
                     </div>
-                    <button class="remove-btn" onclick="removeFile()">${currentLanguage === 'zh' ? '删除' : 'Remove'}</button>
+                    <button class="remove-btn" onclick="removeFile(${index})">删除</button>
                 `;
+
+                // 添加拖拽事件监听器
+                addDragEventListeners(fileItem);
                 fileList.appendChild(fileItem);
+            });
+
+            document.getElementById('processBtn').disabled = fileData.length < 2;
+        }
+
+        function addDragEventListeners(element) {
+            element.addEventListener('dragstart', handleDragStart);
+            element.addEventListener('dragend', handleDragEnd);
+            element.addEventListener('dragover', handleDragOver);
+            element.addEventListener('dragenter', handleDragEnter);
+            element.addEventListener('dragleave', handleDragLeave);
+            element.addEventListener('drop', handleDrop);
+        }
+
+        function handleDragStart(e) {
+            draggedItem = this;
+            draggedIndex = parseInt(this.dataset.index);
+            this.classList.add('dragging');
+
+            // 设置拖拽效果
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.outerHTML);
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+
+            // 清理所有拖拽相关的样式
+            document.querySelectorAll('.file-item').forEach(item => {
+                item.classList.remove('drag-over');
+            });
+
+            draggedItem = null;
+            draggedIndex = -1;
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            if (this !== draggedItem) {
+                this.classList.add('drag-over');
             }
         }
 
-        function removeFile() {
-            pdfFile = null;
-            document.getElementById('fileList').innerHTML = '';
-            document.getElementById('passwordOptions').style.display = 'none';
-            document.getElementById('processBtn').disabled = true;
-            document.getElementById('pdfPassword').value = '';
+        function handleDragLeave(e) {
+            this.classList.remove('drag-over');
         }
 
-        function togglePasswordVisibility() {
-            const passwordInput = document.getElementById('pdfPassword');
-            const showPassword = document.getElementById('showPassword');
-            passwordInput.type = showPassword.checked ? 'text' : 'password';
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            if (this !== draggedItem) {
+                const dropIndex = parseInt(this.dataset.index);
+
+                if (draggedIndex !== -1 && dropIndex !== -1) {
+                    // 重新排列数组
+                    const draggedFile = fileData[draggedIndex];
+                    fileData.splice(draggedIndex, 1);
+                    fileData.splice(dropIndex, 0, draggedFile);
+
+                    // 更新文件列表
+                    updateFileList();
+                }
+            }
+
+            this.classList.remove('drag-over');
+            return false;
+        }
+
+        function removeFile(index) {
+            fileData.splice(index, 1);
+            updateFileList();
         }
 
         function formatFileSize(bytes) {
@@ -521,14 +562,8 @@ var _hmt = _hmt || [];
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
 
-        async function unlockFile() {
-            if (!pdfFile) return;
-
-            const password = document.getElementById('pdfPassword').value;
-            if (!password) {
-                alert(currentLanguage === 'zh' ? '请输入密码' : 'Please enter password');
-                return;
-            }
+        async function mergeFiles() {
+            if (fileData.length < 2) return;
 
             const processBtn = document.getElementById('processBtn');
             const progressBar = document.getElementById('progressBar');
@@ -537,60 +572,44 @@ var _hmt = _hmt || [];
             processBtn.disabled = true;
             processBtn.textContent = currentLanguage === 'zh' ? '处理中...' : 'Processing...';
             progressBar.style.display = 'block';
-            progressFill.style.width = '50%';
 
             try {
-                const arrayBuffer = await pdfFile.arrayBuffer();
-                
-                // 尝试使用密码加载PDF
-                const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer, { password });
-                
-                progressFill.style.width = '75%';
+                const mergedPdf = await PDFLib.PDFDocument.create();
 
-                // 创建新的无密码PDF
-                const newPdf = await PDFLib.PDFDocument.create();
-                const pageIndices = pdfDoc.getPageIndices();
-                const copiedPages = await newPdf.copyPages(pdfDoc, pageIndices);
-                copiedPages.forEach((page) => newPdf.addPage(page));
+                for (let i = 0; i < fileData.length; i++) {
+                    const progress = ((i + 1) / fileData.length) * 100;
+                    progressFill.style.width = progress + '%';
 
-                progressFill.style.width = '90%';
+                    const arrayBuffer = await fileData[i].file.arrayBuffer();
+                    const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
+                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                    copiedPages.forEach((page) => mergedPdf.addPage(page));
+                }
 
-                const pdfBytes = await newPdf.save();
+                const pdfBytes = await mergedPdf.save();
                 const blob = new Blob([pdfBytes], { type: 'application/pdf' });
                 const url = URL.createObjectURL(blob);
 
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = pdfFile.name.replace('.pdf', '_unlocked.pdf');
+                a.download = 'merged.pdf';
                 a.click();
 
                 URL.revokeObjectURL(url);
 
-                progressFill.style.width = '100%';
-
-                // 更新文件图标为解锁状态
-                const fileIcon = document.querySelector('.file-icon');
-                if (fileIcon) {
-                    fileIcon.textContent = '🔓';
-                }
-
             } catch (error) {
-                if (error.message.includes('password') || error.message.includes('encrypted')) {
-                    alert(currentLanguage === 'zh' ? '密码错误，请重新输入' : 'Incorrect password, please try again');
-                } else {
-                    alert(currentLanguage === 'zh' ? '解除密码失败，请检查文件是否有效' : 'Failed to remove password, please check if file is valid');
-                }
+                alert(currentLanguage === 'zh' ? '合并失败，请检查文件是否有效' : 'Merge failed, please check if files are valid');
             }
 
             processBtn.disabled = false;
-            processBtn.textContent = currentLanguage === 'zh' ? '解除密码' : 'Remove Password';
+            processBtn.textContent = currentLanguage === 'zh' ? '开始合并' : 'Start Merging';
             progressBar.style.display = 'none';
             progressFill.style.width = '0%';
         }
 
-        // 拖拽上传
+        // 拖拽上传 
         const uploadArea = document.querySelector('.upload-area');
-        
+
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadArea.classList.add('dragover');
@@ -603,12 +622,18 @@ var _hmt = _hmt || [];
         uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
             uploadArea.classList.remove('dragover');
-            
-            const file = e.dataTransfer.files[0];
-            if (file && file.type === 'application/pdf') {
-                document.getElementById('fileInput').files = e.dataTransfer.files;
-                handleFile({ target: { files: [file] } });
-            }
+
+            const files = Array.from(e.dataTransfer.files);
+            files.forEach(file => {
+                if (file.type === 'application/pdf') {
+                    fileData.push({
+                        file: file,
+                        name: file.name,
+                        size: file.size
+                    });
+                }
+            });
+            updateFileList();
         });
 
         // 页面加载完成后初始化语言

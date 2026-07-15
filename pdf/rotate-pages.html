@@ -4,7 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-zh="旋转页面 - 前端PDF工具箱" data-en="Rotate Pages - Frontend PDF Toolbox">旋转页面 - 前端PDF工具箱</title>
+    <title>旋转页面 - 前端PDF工具箱</title>
+    <meta name="description" content="免费在线PDF旋转工具，支持90°、180°、270°旋转，可选择指定页面或全部页面。纯前端处理，更安全。">
+    <meta name="keywords" content="PDF旋转,PDF页面旋转,PDF方向调整,在线PDF旋转工具">
+    <link rel="canonical" href="https://xiaxufeng.github.io/pdf/rotate-pages.html">
+    <link rel="alternate" hreflang="zh-CN" href="https://xiaxufeng.github.io/pdf/rotate-pages.html">
+    <link rel="alternate" hreflang="en" href="https://xiaxufeng.github.io/pdf/en/rotate-pages.html">
+    <link rel="alternate" hreflang="x-default" href="https://xiaxufeng.github.io/pdf/rotate-pages.html">
+    <meta property="og:title" content="旋转页面 - 前端PDF工具箱">
+    <meta property="og:description" content="免费在线PDF旋转工具，支持90°、180°、270°旋转，可选择指定页面或全部页面。纯前端处理，更安全。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xiaxufeng.github.io/pdf/rotate-pages.html">
+    <meta property="og:locale" content="zh_CN">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="旋转页面 - 前端PDF工具箱">
+    <meta name="twitter:description" content="免费在线PDF旋转工具，支持90°、180°、270°旋转，可选择指定页面或全部页面。纯前端处理，更安全。">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "旋转页面 - 前端PDF工具箱",
+        "alternateName": "Rotate Pages - Frontend PDF Toolbox",
+        "description": "免费在线PDF旋转工具，支持90°、180°、270°旋转，可选择指定页面或全部页面。纯前端处理，更安全。",
+        "url": "https://xiaxufeng.github.io/pdf/rotate-pages.html",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any (Web Browser)",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
 
 <script>
@@ -400,6 +427,7 @@ var _hmt = _hmt || [];
         <a href="index.html" class="logo" data-zh="前端PDF工具箱" data-en="Frontend PDF Toolbox">前端PDF工具箱</a>
         <div class="nav-right">
             <a href="index.html" class="back-btn" data-zh="← 返回首页" data-en="← Back to Home">← 返回首页</a>
+            <a href="en/rotate-pages.html" class="back-btn">English</a>
         </div>
     </nav>
 
@@ -457,7 +485,7 @@ var _hmt = _hmt || [];
                 <div class="option-group">
                     <label class="option-label" data-zh="页面范围" data-en="Page Range">页面范围</label>
                     <input type="text" class="page-input" id="rotatePageInput" data-zh-placeholder="例如: 1-5, 8, 10-12" data-en-placeholder="e.g: 1-5, 8, 10-12" placeholder="例如: 1-5, 8, 10-12" disabled>
-                    <div class="input-hint" id="rotatePageHint" data-zh="选择"指定页面"后输入页面范围或页面号" data-en="Select 'Specific pages' then enter page ranges or numbers">选择"指定页面"后输入页面范围或页面号</div>
+                    <div class="input-hint" id="rotatePageHint" data-zh="选择&quot;指定页面&quot;后输入页面范围或页面号" data-en="Select 'Specific pages' then enter page ranges or numbers">选择"指定页面"后输入页面范围或页面号</div>
                 </div>
             </div>
 
@@ -481,8 +509,6 @@ var _hmt = _hmt || [];
 
         // 检测系统语言并设置初始语言
         function initLanguage() {
-            const systemLang = navigator.language || navigator.userLanguage;
-            currentLanguage = systemLang.startsWith('zh') ? 'zh' : 'en';
             updateLanguage();
         }
 

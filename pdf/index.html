@@ -6,13 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO基础标签 -->
-    <title data-zh="前端PDF工具箱 - 免费在线PDF处理工具" data-en="Frontend PDF Toolbox - Free Online PDF Processing Tools">前端PDF工具箱 - 免费在线PDF处理工具</title>
-    <meta name="description" data-zh-content="免费的在线PDF工具箱，支持PDF合并、拆分、旋转、删除页面、解除密码、删除标注、PDF转图片、图片转PDF。纯前端处理，保护隐私安全。" data-en-content="Free online PDF toolbox supporting PDF merge, split, rotate, remove pages, unlock password, remove annotations, PDF to images, images to PDF. Frontend processing for privacy protection.">
-    <meta name="keywords" data-zh-content="PDF工具,PDF合并,PDF拆分,PDF旋转,PDF转图片,图片转PDF,PDF解密,在线PDF处理,免费PDF工具" data-en-content="PDF tools,PDF merge,PDF split,PDF rotate,PDF to images,images to PDF,PDF unlock,online PDF processing,free PDF tools">
-    
+    <title>前端PDF工具箱 - 免费在线PDF处理工具</title>
+    <meta name="description" content="免费的在线PDF工具箱，支持PDF合并、拆分、旋转、裁剪、删除页面、解除密码、删除标注、PDF转图片、图片转PDF。纯前端处理，无需上传服务器，保护隐私安全。">
+    <meta name="keywords" content="PDF工具,PDF合并,PDF拆分,PDF旋转,PDF裁剪,PDF转图片,图片转PDF,PDF解密,在线PDF处理,免费PDF工具">
+    <meta name="author" content="Frontend PDF Toolbox">
+    <link rel="canonical" href="https://xiaxufeng.github.io/pdf/index.html">
+    <link rel="alternate" hreflang="zh-CN" href="https://xiaxufeng.github.io/pdf/index.html">
+    <link rel="alternate" hreflang="en" href="https://xiaxufeng.github.io/pdf/en/index.html">
+    <link rel="alternate" hreflang="x-default" href="https://xiaxufeng.github.io/pdf/index.html">
+
+    <!-- Open Graph / 社交分享 -->
+    <meta property="og:title" content="前端PDF工具箱 - 免费在线PDF处理工具">
+    <meta property="og:description" content="免费的在线PDF工具箱，支持PDF合并、拆分、旋转、裁剪、删除页面、解除密码、删除标注、PDF转图片、图片转PDF。纯前端处理，保护隐私安全。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xiaxufeng.github.io/pdf/index.html">
+    <meta property="og:locale" content="zh_CN">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="前端PDF工具箱 - 免费在线PDF处理工具">
+    <meta name="twitter:description" content="免费的在线PDF工具箱，支持PDF合并、拆分、旋转、裁剪、删除页面、解除密码、删除标注、PDF转图片、图片转PDF。">
+
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "前端PDF工具箱",
+        "alternateName": "Frontend PDF Toolbox",
+        "description": "免费的在线PDF工具箱，支持PDF合并、拆分、旋转、裁剪、删除页面、解除密码、删除标注、PDF转图片、图片转PDF。纯前端处理，保护隐私安全。",
+        "url": "https://xiaxufeng.github.io/pdf/index.html",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any (Web Browser)",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "PDF合并", "PDF拆分", "PDF裁剪", "PDF旋转页面", "PDF删除页面",
+            "PDF解除密码", "PDF删除标注", "PDF转图片", "图片转PDF"
+        ]
+    }
+    </script>
+
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
-    
+
     <script>
 var _hmt = _hmt || [];
 (function() {
@@ -81,6 +119,8 @@ var _hmt = _hmt || [];
             cursor: pointer;
             font-weight: 500;
             transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .lang-btn:hover {
@@ -238,9 +278,9 @@ var _hmt = _hmt || [];
 <body>
     <!-- 导航栏 -->
     <nav class="nav">
-        <a href="#" class="logo" data-zh="前端PDF工具箱" data-en="Frontend PDF Toolbox">前端PDF工具箱</a>
+        <a href="index.html" class="logo">前端PDF工具箱</a>
         <div class="nav-right">
-            <button class="lang-btn" onclick="toggleLanguage()" data-zh="English" data-en="中文">English</button>
+            <a href="en/index.html" class="lang-btn">English</a>
         </div>
     </nav>
 
@@ -272,6 +312,17 @@ var _hmt = _hmt || [];
                     <li data-zh="拆分为单独页面" data-en="Split into individual pages">拆分为单独页面</li>
                     <li data-zh="提取指定页面范围" data-en="Extract specific page ranges">提取指定页面范围</li>
                     <li data-zh="灵活的页面选择" data-en="Flexible page selection">灵活的页面选择</li>
+                </ul>
+            </a>
+
+            <a href="pdf_page_cropper.html" class="tool-card">
+                <div class="tool-icon">✂️</div>
+                <h3 class="tool-title" data-zh="裁剪PDF" data-en="Crop PDF">裁剪PDF</h3>
+                <p class="tool-description" data-zh="裁剪PDF页面到指定尺寸，支持A4裁A5、标签打印" data-en="Crop PDF pages to a target size, including A4 to A5 and label printing">裁剪PDF页面到指定尺寸，支持A4裁A5、标签打印</p>
+                <ul class="tool-features">
+                    <li data-zh="多页面批量裁剪" data-en="Batch crop multiple pages">多页面批量裁剪</li>
+                    <li data-zh="预设与自定义尺寸" data-en="Preset and custom sizes">预设与自定义尺寸</li>
+                    <li data-zh="实时预览裁剪区域" data-en="Live crop area preview">实时预览裁剪区域</li>
                 </ul>
             </a>
 
@@ -343,65 +394,6 @@ var _hmt = _hmt || [];
         </div>
     </div>
 
-    <script>
-        // 语言管理
-        let currentLanguage = 'zh';
-
-        // 检测系统语言并设置初始语言
-        function initLanguage() {
-            const systemLang = navigator.language || navigator.userLanguage;
-            currentLanguage = systemLang.startsWith('zh') ? 'zh' : 'en';
-            updateLanguage();
-        }
-
-        // 切换语言
-        function toggleLanguage() {
-            currentLanguage = currentLanguage === 'zh' ? 'en' : 'zh';
-            updateLanguage();
-        }
-
-        // 更新页面语言
-        function updateLanguage() {
-            const elements = document.querySelectorAll('[data-zh][data-en]');
-
-            elements.forEach(element => {
-                const text = element.getAttribute(`data-${currentLanguage}`);
-                if (text) {
-                    if (element.tagName === 'INPUT' && (element.type === 'text' || element.type === 'password')) {
-                        element.placeholder = text;
-                    } else {
-                        element.textContent = text;
-                    }
-                }
-            });
-
-            // 更新placeholder
-            const placeholderElements = document.querySelectorAll(`[data-${currentLanguage}-placeholder]`);
-            placeholderElements.forEach(element => {
-                const placeholder = element.getAttribute(`data-${currentLanguage}-placeholder`);
-                if (placeholder) {
-                    element.placeholder = placeholder;
-                }
-            });
-
-            // 更新title
-            const titleElement = document.querySelector('title');
-            if (titleElement) {
-                const titleText = titleElement.getAttribute(`data-${currentLanguage}`);
-                if (titleText) {
-                    document.title = titleText;
-                }
-            }
-
-            // 更新html lang属性
-            document.documentElement.lang = currentLanguage === 'zh' ? 'zh-CN' : 'en';
-        }
-
-        // 页面加载完成后初始化语言
-        document.addEventListener('DOMContentLoaded', function () {
-            initLanguage();
-        });
-    </script>
 </body>
 
 </html>

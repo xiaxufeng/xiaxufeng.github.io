@@ -4,7 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-zh="合并PDF - 前端PDF工具箱" data-en="Merge PDF - Frontend PDF Toolbox">合并PDF - 前端PDF工具箱</title>
+    <title>合并PDF - 前端PDF工具箱</title>
+    <meta name="description" content="免费在线PDF合并工具，将多个PDF文件按自定义顺序合并为一个文档，支持拖拽调整顺序。纯前端处理，无需上传服务器，保护文件隐私。">
+    <meta name="keywords" content="PDF合并,合并PDF文件,PDF拼接,在线PDF合并,免费PDF合并工具">
+    <link rel="canonical" href="https://xiaxufeng.github.io/pdf/merge.html">
+    <link rel="alternate" hreflang="zh-CN" href="https://xiaxufeng.github.io/pdf/merge.html">
+    <link rel="alternate" hreflang="en" href="https://xiaxufeng.github.io/pdf/en/merge.html">
+    <link rel="alternate" hreflang="x-default" href="https://xiaxufeng.github.io/pdf/merge.html">
+    <meta property="og:title" content="合并PDF - 前端PDF工具箱">
+    <meta property="og:description" content="免费在线PDF合并工具，将多个PDF文件按自定义顺序合并为一个文档，支持拖拽调整顺序。纯前端处理，无需上传服务器，保护文件隐私。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xiaxufeng.github.io/pdf/merge.html">
+    <meta property="og:locale" content="zh_CN">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="合并PDF - 前端PDF工具箱">
+    <meta name="twitter:description" content="免费在线PDF合并工具，将多个PDF文件按自定义顺序合并为一个文档，支持拖拽调整顺序。纯前端处理，无需上传服务器，保护文件隐私。">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "合并PDF - 前端PDF工具箱",
+        "alternateName": "Merge PDF - Frontend PDF Toolbox",
+        "description": "免费在线PDF合并工具，将多个PDF文件按自定义顺序合并为一个文档，支持拖拽调整顺序。纯前端处理，无需上传服务器，保护文件隐私。",
+        "url": "https://xiaxufeng.github.io/pdf/merge.html",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any (Web Browser)",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
 
@@ -346,6 +373,7 @@
         <a href="index.html" class="logo" data-zh="前端PDF工具箱" data-en="Frontend PDF Toolbox">前端PDF工具箱</a>
         <div class="nav-right">
             <a href="index.html" class="back-btn" data-zh="← 返回首页" data-en="← Back to Home">← 返回首页</a>
+            <a href="en/merge.html" class="back-btn">English</a>
         </div>
     </nav>
 
@@ -390,8 +418,6 @@
 
         // 检测系统语言并设置初始语言
         function initLanguage() {
-            const systemLang = navigator.language || navigator.userLanguage;
-            currentLanguage = systemLang.startsWith('zh') ? 'zh' : 'en';
             updateLanguage();
         }
 

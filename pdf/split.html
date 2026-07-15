@@ -4,7 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-zh="拆分PDF - 前端PDF工具箱" data-en="Split PDF - Frontend PDF Toolbox">拆分PDF - 前端PDF工具箱</title>
+    <title>拆分PDF - 前端PDF工具箱</title>
+    <meta name="description" content="免费在线PDF拆分工具，支持按页拆分或提取指定页面范围，灵活选择页面。纯前端处理，无需上传服务器。">
+    <meta name="keywords" content="PDF拆分,PDF分割,提取PDF页面,在线PDF拆分,免费PDF拆分工具">
+    <link rel="canonical" href="https://xiaxufeng.github.io/pdf/split.html">
+    <link rel="alternate" hreflang="zh-CN" href="https://xiaxufeng.github.io/pdf/split.html">
+    <link rel="alternate" hreflang="en" href="https://xiaxufeng.github.io/pdf/en/split.html">
+    <link rel="alternate" hreflang="x-default" href="https://xiaxufeng.github.io/pdf/split.html">
+    <meta property="og:title" content="拆分PDF - 前端PDF工具箱">
+    <meta property="og:description" content="免费在线PDF拆分工具，支持按页拆分或提取指定页面范围，灵活选择页面。纯前端处理，无需上传服务器。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xiaxufeng.github.io/pdf/split.html">
+    <meta property="og:locale" content="zh_CN">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="拆分PDF - 前端PDF工具箱">
+    <meta name="twitter:description" content="免费在线PDF拆分工具，支持按页拆分或提取指定页面范围，灵活选择页面。纯前端处理，无需上传服务器。">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "拆分PDF - 前端PDF工具箱",
+        "alternateName": "Split PDF - Frontend PDF Toolbox",
+        "description": "免费在线PDF拆分工具，支持按页拆分或提取指定页面范围，灵活选择页面。纯前端处理，无需上传服务器。",
+        "url": "https://xiaxufeng.github.io/pdf/split.html",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any (Web Browser)",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
 
 <script>
@@ -357,6 +384,7 @@ var _hmt = _hmt || [];
         <a href="index.html" class="logo" data-zh="前端PDF工具箱" data-en="Frontend PDF Toolbox">前端PDF工具箱</a>
         <div class="nav-right">
             <a href="index.html" class="back-btn" data-zh="← 返回首页" data-en="← Back to Home">← 返回首页</a>
+            <a href="en/split.html" class="back-btn">English</a>
         </div>
     </nav>
 
@@ -396,7 +424,7 @@ var _hmt = _hmt || [];
                 <div class="option-group">
                     <label class="option-label" data-zh="页面设置" data-en="Page Settings">页面设置</label>
                     <input type="text" class="page-input" id="pageInput" data-zh-placeholder="例如: 1-5, 8, 10-12" data-en-placeholder="e.g: 1-5, 8, 10-12" placeholder="例如: 1-5, 8, 10-12" disabled>
-                    <div class="input-hint" id="pageHint" data-zh="选择"提取指定页面"后输入页面范围或页面号" data-en="Select 'Extract specific pages' then enter page ranges or numbers">选择"提取指定页面"后输入页面范围或页面号</div>
+                    <div class="input-hint" id="pageHint" data-zh="选择&quot;提取指定页面&quot;后输入页面范围或页面号" data-en="Select 'Extract specific pages' then enter page ranges or numbers">选择"提取指定页面"后输入页面范围或页面号</div>
                 </div>
             </div>
 
@@ -419,8 +447,6 @@ var _hmt = _hmt || [];
 
         // 检测系统语言并设置初始语言
         function initLanguage() {
-            const systemLang = navigator.language || navigator.userLanguage;
-            currentLanguage = systemLang.startsWith('zh') ? 'zh' : 'en';
             updateLanguage();
         }
 
